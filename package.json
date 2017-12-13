@@ -16,5 +16,13 @@
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumavis/eth-json-rpc-infura.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kumavis/eth-json-rpc-infura/issues"
+  },
+  "homepage": "https://github.com/kumavis/eth-json-rpc-infura#readme",
   "description": ""
 }
