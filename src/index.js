@@ -6,20 +6,16 @@ module.exports.urlFromReq = urlFromReq
 function createInfuraMiddleware({ network = 'mainnet' }) {
   return createAsyncMiddleware(async (req, res, next) => {
     const targetUrl = urlFromReq({ network, req })
-    // try {
-      const response = await fetch(targetUrl)
-      const rawData = await response.text()
-      // special case for now
-      if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
-        err.result = null
-        return
-      }
-      const data = JSON.parse(rawData)
-      res.result = data.result
-      res.error = data.error
-    // } catch (err) {
-    //   res.error = err.message
-    // }
+    const response = await fetch(targetUrl)
+    const rawData = await response.text()
+    // special case for now
+    if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
+      err.result = null
+      return
+    }
+    const data = JSON.parse(rawData)
+    res.result = data.result
+    res.error = data.error
   })
 }
 
