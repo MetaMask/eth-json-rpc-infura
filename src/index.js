@@ -10,7 +10,7 @@ function createInfuraMiddleware({ network = 'mainnet' }) {
     const rawData = await response.text()
     // special case for now
     if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
-      err.result = null
+      res.result = null
       return
     }
     const data = JSON.parse(rawData)
