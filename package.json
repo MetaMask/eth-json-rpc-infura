@@ -1,6 +1,6 @@
 {
   "name": "eth-json-rpc-infura",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -12,7 +12,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/index.js"
   },
   "author": "",
   "license": "ISC",
