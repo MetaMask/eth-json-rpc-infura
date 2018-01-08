@@ -1,12 +1,12 @@
 const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware')
 
 module.exports = createInfuraMiddleware
-module.exports.urlFromReq = urlFromReq
+module.exports.fetchConfigFromReq = fetchConfigFromReq
 
 function createInfuraMiddleware({ network = 'mainnet' }) {
   return createAsyncMiddleware(async (req, res, next) => {
-    const targetUrl = urlFromReq({ network, req })
-    const response = await fetch(targetUrl)
+    const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
+    const response = await fetch(fetchUrl, fetchParams)
     const rawData = await response.text()
     // special case for now
     if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
@@ -19,9 +19,24 @@ function createInfuraMiddleware({ network = 'mainnet' }) {
   })
 }
 
-function urlFromReq({ network, req }) {
+function fetchConfigFromReq({ network, req }) {
   const { method, params } = req
-  const paramsString = encodeURIComponent(JSON.stringify(params))
-  const targetUrl = `https://api.infura.io/v1/jsonrpc/${network}/${method}?params=${paramsString}`
-  return targetUrl
+
+  const fetchParams = {}
+  let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}/`
+  const isPostMethod = ['eth_sendRawTransaction'].includes(req.method)
+  if (isPostMethod) {
+    fetchParams.method = 'POST'
+    fetchParams.headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    fetchParams.body = JSON.stringify(req)
+  } else {
+    fetchParams.method = 'GET'
+    const paramsString = encodeURIComponent(JSON.stringify(params))
+    fetchUrl += `${method}?params=${paramsString}`
+  }
+
+  return { fetchUrl, fetchParams }
 }
