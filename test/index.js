@@ -25,7 +25,7 @@ test('fetchConfigFromReq - basic', (t) => {
   }
 
   const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
-  t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/ropsten/')
+  t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/ropsten')
   t.deepEquals(fetchParams, {
     method: 'POST',
     headers: {

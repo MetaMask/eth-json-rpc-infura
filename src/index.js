@@ -41,7 +41,7 @@ function fetchConfigFromReq({ network, req }) {
   const { method, params } = req
 
   const fetchParams = {}
-  let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}/`
+  let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}`
   const isPostMethod = ['eth_sendRawTransaction', 'eth_estimateGas'].includes(req.method)
   if (isPostMethod) {
     fetchParams.method = 'POST'
@@ -53,7 +53,7 @@ function fetchConfigFromReq({ network, req }) {
   } else {
     fetchParams.method = 'GET'
     const paramsString = encodeURIComponent(JSON.stringify(params))
-    fetchUrl += `${method}?params=${paramsString}`
+    fetchUrl += `/${method}?params=${paramsString}`
   }
 
   return { fetchUrl, fetchParams }
