@@ -1,6 +1,6 @@
 {
   "name": "eth-json-rpc-infura",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -8,6 +8,7 @@
   "dependencies": {
     "eth-json-rpc-middleware": "^1.5.0",
     "json-rpc-engine": "^3.4.0",
+    "json-rpc-error": "^2.0.0",
     "tape": "^4.8.0"
   },
   "devDependencies": {},
