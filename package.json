@@ -1,7 +1,7 @@
 {
   "name": "eth-json-rpc-infura",
   "version": "2.0.5",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "test": "test"
   },
