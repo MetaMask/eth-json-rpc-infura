@@ -2,51 +2,91 @@ const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware
 const JsonRpcError = require('json-rpc-error')
 
 const POST_METHODS = ['eth_call', 'eth_estimateGas', 'eth_sendRawTransaction']
+const RETRIABLE_ERRORS = [
+  // ignore server overload errors
+  'Gateway timeout',
+  'ETIMEDOUT',
+  // ignore server sent html error pages
+  // or truncated json responses
+  'SyntaxError',
+]
 
 module.exports = createInfuraMiddleware
 module.exports.fetchConfigFromReq = fetchConfigFromReq
 
-function createInfuraMiddleware({ network = 'mainnet' }) {
+function createInfuraMiddleware({ network = 'mainnet', maxAttempts = 5 }) {
+  // validate options
+  if (!maxAttempts) throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
+
   return createAsyncMiddleware(async (req, res, next) => {
-    const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
-    const response = await fetch(fetchUrl, fetchParams)
-    const rawData = await response.text()
-    // handle errors
-    if (!response.ok) {
-      switch (response.status) {
-        case 405:
-          throw new JsonRpcError.MethodNotFound()
-
-        case 418:
-          throw createRatelimitError()
-
-        case 503:
-        case 504:
-          throw createTimeoutError()
-
-        default:
-          throw createInternalError(rawData)
+    // retry MAX_ATTEMPTS times, if error matches filter
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        // attempt request
+        await performFetch(req, res)
+        // request was succesful
+        break
+      } catch (err) {
+        // an error was caught while performing the request
+        const remainingAttempts = maxAttempts - attempt
+        // if not retriable, resolve with the encountered error
+        if (!remainingAttempts || !isRetriableError(err)) {
+          // abort with error
+          throw createInternalError(err)
+        }
+        // otherwise, ignore error and retry again after timeout
+        await timeout(1000)
       }
     }
-
-    // special case for now
-    if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
-      res.result = null
-      return
-    }
-
-    // parse JSON
-    let data
-    try {
-      data = JSON.parse(rawData)
-    } catch (err) {
-      throw createInternalError(rawData)
-    }
-
-    // finally return result
-    res.result = data.result
-    res.error = data.error
+    // request was handled correctly, end
   })
+}
+
+function timeout(length) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, length)
+  })
+}
+
+function isRetriableError(err) {
+  const errMessage = err.toString()
+  return RETRIABLE_ERRORS.some(phrase => errMessage.includes(phrase))
+}
+
+async function performFetch(req, res){
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
+  const response = await fetch(fetchUrl, fetchParams)
+  const rawData = await response.text()
+  // handle errors
+  if (!response.ok) {
+    switch (response.status) {
+      case 405:
+        throw new JsonRpcError.MethodNotFound()
+
+      case 418:
+        throw createRatelimitError()
+
+      case 503:
+      case 504:
+        throw createTimeoutError()
+
+      default:
+        throw createInternalError(rawData)
+    }
+  }
+
+  // special case for now
+  if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
+    res.result = null
+    return
+  }
+
+  // parse JSON
+  const data = JSON.parse(rawData)
+
+  // finally return result
+  res.result = data.result
+  res.error = data.error
 }
 
 function fetchConfigFromReq({ network, req }) {
