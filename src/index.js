@@ -1,6 +1,8 @@
 const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware')
 const JsonRpcError = require('json-rpc-error')
 
+const POST_METHODS = ['eth_call', 'eth_estimateGas', 'eth_sendRawTransaction']
+
 module.exports = createInfuraMiddleware
 module.exports.fetchConfigFromReq = fetchConfigFromReq
 
@@ -52,7 +54,7 @@ function fetchConfigFromReq({ network, req }) {
 
   const fetchParams = {}
   let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}`
-  const isPostMethod = ['eth_call', 'eth_estimateGas', 'eth_sendRawTransaction'].includes(req.method)
+  const isPostMethod = POST_METHODS.includes(req.method)
   if (isPostMethod) {
     fetchParams.method = 'POST'
     fetchParams.headers = {
