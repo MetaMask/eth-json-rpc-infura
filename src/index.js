@@ -26,12 +26,22 @@ function createInfuraMiddleware({ network = 'mainnet' }) {
           throw createInternalError(rawData)
       }
     }
+
     // special case for now
     if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
       res.result = null
       return
     }
-    const data = JSON.parse(rawData)
+
+    // parse JSON
+    let data
+    try {
+      data = JSON.parse(rawData)
+    } catch (err) {
+      throw createInternalError(rawData)
+    }
+
+    // finally return result
     res.result = data.result
     res.error = data.error
   })
