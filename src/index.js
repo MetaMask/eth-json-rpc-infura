@@ -23,7 +23,7 @@ function createInfuraMiddleware({ network = 'mainnet', maxAttempts = 5 }) {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         // attempt request
-        await performFetch(req, res)
+        await performFetch(network, req, res)
         // request was succesful
         break
       } catch (err) {
@@ -59,7 +59,7 @@ function isRetriableError(err) {
   return RETRIABLE_ERRORS.some(phrase => errMessage.includes(phrase))
 }
 
-async function performFetch(req, res){
+async function performFetch(network, req, res){
   const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
   const response = await fetch(fetchUrl, fetchParams)
   const rawData = await response.text()
