@@ -28,11 +28,17 @@ function createInfuraMiddleware({ network = 'mainnet', maxAttempts = 5 }) {
         break
       } catch (err) {
         // an error was caught while performing the request
-        const remainingAttempts = maxAttempts - attempt
         // if not retriable, resolve with the encountered error
-        if (!remainingAttempts || !isRetriableError(err)) {
+        if (!isRetriableError(err)) {
           // abort with error
           throw createInternalError(err)
+        }
+        // if no more attempts remaining, throw an error
+        const remainingAttempts = maxAttempts - attempt
+        if (!remainingAttempts) {
+          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${err.toString()}\n\n`
+          const retriesExhaustedErr = new Error(errMsg)
+          throw createInternalError(retriesExhaustedErr)
         }
         // otherwise, ignore error and retry again after timeout
         await timeout(1000)
