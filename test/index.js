@@ -37,3 +37,21 @@ test('fetchConfigFromReq - basic', (t) => {
   t.end()
 
 })
+
+
+test('fetchConfigFromReq - strip non-standard keys', (t) => {
+
+  const network = 'ropsten'
+  const req = {
+    method: 'eth_sendRawTransaction',
+    params: ['0x0102030405060708090a0b0c0d0e0f'],
+    origin: 'happydapp.eth',
+  }
+
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
+  t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/ropsten')
+  const parsedReq = JSON.parse(fetchParams.body)
+  t.notOk('origin' in parsedReq, 'non-standard key removed from req')
+  t.end()
+
+})

@@ -96,18 +96,19 @@ async function performFetch(network, req, res){
 }
 
 function fetchConfigFromReq({ network, req }) {
-  const { method, params } = req
+  const cleanReq = normalizeReq(req)
+  const { method, params } = cleanReq
 
   const fetchParams = {}
   let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}`
-  const isPostMethod = POST_METHODS.includes(req.method)
+  const isPostMethod = POST_METHODS.includes(method)
   if (isPostMethod) {
     fetchParams.method = 'POST'
     fetchParams.headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    fetchParams.body = JSON.stringify(req)
+    fetchParams.body = JSON.stringify(cleanReq)
   } else {
     fetchParams.method = 'GET'
     const paramsString = encodeURIComponent(JSON.stringify(params))
@@ -117,6 +118,15 @@ function fetchConfigFromReq({ network, req }) {
   return { fetchUrl, fetchParams }
 }
 
+// strips out extra keys that could be rejected by strict nodes like parity
+function normalizeReq(req) {
+  return {
+    id: req.id,
+    jsonrpc: req.jsonrpc,
+    method: req.method,
+    params: req.params,
+  }
+}
 
 function createRatelimitError () {
   let msg = `Request is being rate limited.`
