@@ -1,5 +1,6 @@
 const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware')
 const JsonRpcError = require('json-rpc-error')
+const fetch = require('cross-fetch')
 
 const POST_METHODS = ['eth_call', 'eth_estimateGas', 'eth_sendRawTransaction']
 const RETRIABLE_ERRORS = [
