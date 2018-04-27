@@ -15,7 +15,9 @@ const RETRIABLE_ERRORS = [
 module.exports = createInfuraMiddleware
 module.exports.fetchConfigFromReq = fetchConfigFromReq
 
-function createInfuraMiddleware({ network = 'mainnet', maxAttempts = 5 }) {
+function createInfuraMiddleware(opts = {}) {
+  const network = opts.network || 'mainnet'
+  const maxAttempts = opts.maxAttempts || 5
   // validate options
   if (!maxAttempts) throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
 
