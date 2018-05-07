@@ -7,6 +7,7 @@ const RETRIABLE_ERRORS = [
   // ignore server overload errors
   'Gateway timeout',
   'ETIMEDOUT',
+  'ECONNRESET',
   // ignore server sent html error pages
   // or truncated json responses
   'SyntaxError',
