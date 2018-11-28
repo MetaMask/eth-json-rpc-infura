@@ -11,6 +11,8 @@ const RETRIABLE_ERRORS = [
   // ignore server sent html error pages
   // or truncated json responses
   'SyntaxError',
+  //ignore empty response
+  'Response has no error or result',
 ]
 
 module.exports = createInfuraMiddleware
@@ -94,6 +96,10 @@ async function performFetch(network, req, res){
   // parse JSON
   const data = JSON.parse(rawData)
 
+  if (!data.result && !data.error) {
+    throw createEmptyResponseError(JSON.stringify(req))
+  }
+
   // finally return result
   res.result = data.result
   res.error = data.error
@@ -130,6 +136,11 @@ function normalizeReq(req) {
     method: req.method,
     params: req.params,
   }
+}
+
+function createEmptyResponseError (req) {
+  let msg = `Response has no error or result: ${req}`
+  return createInternalError(msg)
 }
 
 function createRatelimitError () {

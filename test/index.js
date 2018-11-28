@@ -1,5 +1,7 @@
 const test = require('tape')
+const nock = require('nock')
 const { fetchConfigFromReq } = require('../src/index')
+
 
 test('fetchConfigFromReq - basic', (t) => {
 
@@ -54,4 +56,24 @@ test('fetchConfigFromReq - strip non-standard keys', (t) => {
   t.notOk('origin' in parsedReq, 'non-standard key removed from req')
   t.end()
 
+})
+
+test('createInfuraMiddleware - runs through all the retry attempts due to empty response', (t) => {
+  const scope = nock('https://api.infura.io').persist().get(/.*/).times(5).reply(200, {})
+  const network = 'mainnet'
+  const req = {
+    method: 'eth_getBlockByNumber',
+    params: ['0x482103', true],
+  }
+
+  const createInfuraMiddleware = require('../src/index')
+
+  const fetchMiddlewear = createInfuraMiddleware()
+
+    fetchMiddlewear(req, {}, () => {}, (e) => {
+      t.true(scope.isDone(), 'should fetch 5 times')
+      t.true(e.message.includes('All retries exhausted'), 'error message should include: All retries exhausted')
+      t.true(e.message.includes('Response has no error or result'), 'error message should include: Response has no error or result')
+      t.end()
+    })
 })
