@@ -68,9 +68,9 @@ test('createInfuraMiddleware - runs through all the retry attempts due to empty 
 
   const createInfuraMiddleware = require('../src/index')
 
-  const fetchMiddlewear = createInfuraMiddleware()
+  const createInfuraMiddleware = createInfuraMiddleware()
 
-    fetchMiddlewear(req, {}, () => {}, (e) => {
+    createInfuraMiddleware(req, {}, () => {}, (e) => {
       t.true(scope.isDone(), 'should fetch 5 times')
       t.true(e.message.includes('All retries exhausted'), 'error message should include: All retries exhausted')
       t.true(e.message.includes('Response has no error or result'), 'error message should include: Response has no error or result')
