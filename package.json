@@ -12,7 +12,9 @@
     "json-rpc-error": "^2.0.0",
     "tape": "^4.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nock": "^10.0.2"
+  },
   "scripts": {
     "test": "node test/index.js"
   },
