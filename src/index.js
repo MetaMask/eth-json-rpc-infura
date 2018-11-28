@@ -96,7 +96,7 @@ async function performFetch(network, req, res){
   // parse JSON
   const data = JSON.parse(rawData)
 
-  if (!data.result && !data.error) {
+  if (!('result' in data) && !('error' in data)) {
     throw createEmptyResponseError(JSON.stringify(req))
   }
 
