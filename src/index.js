@@ -19,8 +19,6 @@ module.exports.fetchConfigFromReq = fetchConfigFromReq
 function createInfuraMiddleware(opts = {}) {
   const network = opts.network || 'mainnet'
   const maxAttempts = opts.maxAttempts || 5
-  const source = opts.source || 'eth-json-rpc-infura'
-
   // validate options
   if (!maxAttempts) throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
 
@@ -29,8 +27,8 @@ function createInfuraMiddleware(opts = {}) {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         // attempt request
-        await performFetch(network, req, res, source)
-        // request was successful
+        await performFetch(network, req, res)
+        // request was succesful
         break
       } catch (err) {
         // an error was caught while performing the request
@@ -65,8 +63,8 @@ function isRetriableError(err) {
   return RETRIABLE_ERRORS.some(phrase => errMessage.includes(phrase))
 }
 
-async function performFetch(network, req, res, source){
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source })
+async function performFetch(network, req, res){
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
   const response = await fetch(fetchUrl, fetchParams)
   const rawData = await response.text()
   // handle errors
@@ -101,8 +99,7 @@ async function performFetch(network, req, res, source){
   res.error = data.error
 }
 
-function fetchConfigFromReq({ network, req, source }) {
-  const requestOrigin = req.origin || 'internal'
+function fetchConfigFromReq({ network, req }) {
   const cleanReq = normalizeReq(req)
   const { method, params } = cleanReq
 
@@ -113,15 +110,11 @@ function fetchConfigFromReq({ network, req, source }) {
     fetchParams.method = 'POST'
     fetchParams.headers = {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      [source]: requestOrigin
+      'Content-Type': 'application/json'
     },
     fetchParams.body = JSON.stringify(cleanReq)
   } else {
     fetchParams.method = 'GET'
-    fetchParams.headers = {
-      [source]: requestOrigin
-    }
     const paramsString = encodeURIComponent(JSON.stringify(params))
     fetchUrl += `/${method}?params=${paramsString}`
   }
