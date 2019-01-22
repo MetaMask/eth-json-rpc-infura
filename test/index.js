@@ -14,11 +14,29 @@ test('fetchConfigFromReq - basic', (t) => {
   t.deepEquals(fetchParams, { 
     method: 'GET',     
     headers: {
-    'eth-json-rpc-infura': 'internal'
+    'Infura-Source': 'eth-json-rpc-infura/internal'
   }, })
   t.end()
 
 })
+
+test('fetchConfigFromReq - basic: no source specified', (t) => {
+
+  const network = 'mainnet'
+  const req = {
+    method: 'eth_getBlockByNumber',
+    params: ['0x482103', true],
+  }
+
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
+  t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBlockByNumber?params=%5B%220x482103%22%2Ctrue%5D')
+  t.deepEquals(fetchParams, { 
+    method: 'GET',
+  })
+  t.end()
+
+})
+
 
 test('fetchConfigFromReq - basic', (t) => {
 
@@ -35,7 +53,7 @@ test('fetchConfigFromReq - basic', (t) => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'eth-json-rpc-infura': 'internal'
+      'Infura-Source': 'eth-json-rpc-infura/internal'
     },
     body: JSON.stringify(req),
   })
@@ -53,7 +71,7 @@ test('fetchConfigFromReq - strip non-standard keys', (t) => {
     origin: 'happydapp.eth',
   }
 
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source:'eth-json-rpc-infura' })
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
   t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/ropsten')
   const parsedReq = JSON.parse(fetchParams.body)
   t.notOk('origin' in parsedReq, 'non-standard key removed from req')
@@ -61,7 +79,7 @@ test('fetchConfigFromReq - strip non-standard keys', (t) => {
 
 })
 
-test('fetchConfigFromReq - request origin in header', (t) => {
+test('fetchConfigFromReq - source specified for request origin in header', (t) => {
 
   const network = 'ropsten'
   const req = {
@@ -77,7 +95,7 @@ test('fetchConfigFromReq - request origin in header', (t) => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'eth-json-rpc-infura': 'happydapp.eth'
+      'Infura-Source': 'eth-json-rpc-infura/happydapp.eth'
     },
     body: fetchParams.body,
   })
