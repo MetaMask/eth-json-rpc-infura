@@ -15,7 +15,8 @@ test('fetchConfigFromReq - basic', (t) => {
     method: 'GET',     
     headers: {
     'Infura-Source': 'eth-json-rpc-infura/internal'
-  }, })
+    }, 
+  })
   t.end()
 
 })
