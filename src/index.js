@@ -19,6 +19,8 @@ module.exports.fetchConfigFromReq = fetchConfigFromReq
 function createInfuraMiddleware(opts = {}) {
   const network = opts.network || 'mainnet'
   const maxAttempts = opts.maxAttempts || 5
+  const source = opts.source
+
   // validate options
   if (!maxAttempts) throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
 
@@ -110,11 +112,17 @@ function fetchConfigFromReq({ network, req }) {
     fetchParams.method = 'POST'
     fetchParams.headers = {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      ...(source ? {'Infura-Source': `${source}/${requestOrigin}`} : {}),
     },
     fetchParams.body = JSON.stringify(cleanReq)
   } else {
     fetchParams.method = 'GET'
+    if (source) {
+      fetchParams.headers = {
+        'Infura-Source': `${source}/${requestOrigin}`
+      }
+    }
     const paramsString = encodeURIComponent(JSON.stringify(params))
     fetchUrl += `/${method}?params=${paramsString}`
   }
