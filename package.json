@@ -7,12 +7,14 @@
   },
   "dependencies": {
     "cross-fetch": "^2.1.1",
-    "eth-json-rpc-middleware": "^1.5.0",
-    "json-rpc-engine": "^3.4.0",
+    "eth-json-rpc-middleware": "^4.0.0",
+    "json-rpc-engine": "^5.0.0",
     "json-rpc-error": "^2.0.0",
     "tape": "^4.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.3.4"
+  },
   "scripts": {
     "test": "node test/index.js"
   },
