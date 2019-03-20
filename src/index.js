@@ -102,13 +102,13 @@ async function performFetch(network, req, res, source, projectId){
   res.error = data.error
 }
 
-function fetchConfigFromReq({ network, req, source }) {
+function fetchConfigFromReq({ network, req, source, projectId }) {
   const requestOrigin = req.origin || 'internal'
   const cleanReq = normalizeReq(req)
   const { method, params } = cleanReq
 
   const fetchParams = {}
-  let fetchUrl = `https://${network}.infura.io/v3/${apiKey}`
+  let fetchUrl = `https://${network}.infura.io/v3/${projectId}`
   const isPostMethod = POST_METHODS.includes(method)
   if (isPostMethod) {
     fetchParams.method = 'POST'
