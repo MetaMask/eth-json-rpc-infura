@@ -20,6 +20,7 @@ function createInfuraMiddleware(opts = {}) {
   const network = opts.network || 'mainnet'
   const maxAttempts = opts.maxAttempts || 5
   const source = opts.source
+  const projectId = opts.projectId
 
   // validate options
   if (!maxAttempts) throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
@@ -29,7 +30,7 @@ function createInfuraMiddleware(opts = {}) {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         // attempt request
-        await performFetch(network, req, res, source)
+        await performFetch(network, req, res, source, projectId)
         // request was successful
         break
       } catch (err) {
@@ -65,8 +66,8 @@ function isRetriableError(err) {
   return RETRIABLE_ERRORS.some(phrase => errMessage.includes(phrase))
 }
 
-async function performFetch(network, req, res, source){
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source })
+async function performFetch(network, req, res, source, projectId){
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source, projectId })
   const response = await fetch(fetchUrl, fetchParams)
   const rawData = await response.text()
   // handle errors
@@ -107,7 +108,7 @@ function fetchConfigFromReq({ network, req, source }) {
   const { method, params } = cleanReq
 
   const fetchParams = {}
-  let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}`
+  let fetchUrl = `https://${network}.infura.io/v3/${apiKey}`
   const isPostMethod = POST_METHODS.includes(method)
   if (isPostMethod) {
     fetchParams.method = 'POST'
