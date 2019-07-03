@@ -113,9 +113,9 @@ function fetchConfigFromReq({ network, req, source }) {
     fetchParams.method = 'POST'
     fetchParams.headers = {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      ...(source ? {'Infura-Source': `${source}/${requestOrigin}`} : {}),
-    },
+      'Content-Type': 'application/json'
+    }
+    if (source) fetchParams.headers['Infura-Source'] = `${source}/${requestOrigin}`
     fetchParams.body = JSON.stringify(cleanReq)
   } else {
     fetchParams.method = 'GET'
