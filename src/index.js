@@ -1,5 +1,5 @@
 const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware')
-const JsonRpcError = require('json-rpc-error')
+const { errors: rpcErrors } = require('eth-json-rpc-errors')
 const fetch = require('cross-fetch')
 
 const POST_METHODS = ['eth_call', 'eth_estimateGas', 'eth_sendRawTransaction']
@@ -73,7 +73,7 @@ async function performFetch(network, req, res, source){
   if (!response.ok) {
     switch (response.status) {
       case 405:
-        throw new JsonRpcError.MethodNotFound()
+        throw rpcErrors.methodNotFound()
 
       case 418:
         throw createRatelimitError()
@@ -153,6 +153,5 @@ function createTimeoutError () {
 }
 
 function createInternalError (msg) {
-  const err = new Error(msg)
-  return new JsonRpcError.InternalError(err)
+  return rpcErrors.internal(msg)
 }
