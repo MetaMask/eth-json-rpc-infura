@@ -103,6 +103,7 @@ async function performFetch(network, req, res, source, projectId){
 }
 
 function fetchConfigFromReq({ network, req, source, projectId }) {
+  if (!projectId) throw new Error('eth-json-rpc-infura - must provide projectId in options')
   const requestOrigin = req.origin || 'internal'
   const cleanReq = normalizeReq(req)
   const { method, params } = cleanReq
