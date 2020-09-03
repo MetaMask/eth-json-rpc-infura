@@ -1,5 +1,5 @@
 const test = require('tape')
-const { fetchConfigFromReq } = require('../src/index')
+const { fetchConfigFromReq } = require('../src')
 
 test('fetchConfigFromReq - basic', (t) => {
 
@@ -9,13 +9,13 @@ test('fetchConfigFromReq - basic', (t) => {
     params: ['0x482103', true],
   }
 
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source:'eth-json-rpc-infura' })
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source: 'eth-json-rpc-infura' })
   t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBlockByNumber?params=%5B%220x482103%22%2Ctrue%5D')
-  t.deepEquals(fetchParams, { 
-    method: 'GET',     
+  t.deepEquals(fetchParams, {
+    method: 'GET',
     headers: {
-    'Infura-Source': 'eth-json-rpc-infura/internal'
-    }, 
+      'Infura-Source': 'eth-json-rpc-infura/internal',
+    },
   })
   t.end()
 
@@ -31,13 +31,12 @@ test('fetchConfigFromReq - basic: no source specified', (t) => {
 
   const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req })
   t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBlockByNumber?params=%5B%220x482103%22%2Ctrue%5D')
-  t.deepEquals(fetchParams, { 
+  t.deepEquals(fetchParams, {
     method: 'GET',
   })
   t.end()
 
 })
-
 
 test('fetchConfigFromReq - basic', (t) => {
 
@@ -47,21 +46,20 @@ test('fetchConfigFromReq - basic', (t) => {
     params: ['0x0102030405060708090a0b0c0d0e0f'],
   }
 
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source:'eth-json-rpc-infura' })
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source: 'eth-json-rpc-infura' })
   t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/ropsten')
   t.deepEquals(fetchParams, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Infura-Source': 'eth-json-rpc-infura/internal'
+      'Infura-Source': 'eth-json-rpc-infura/internal',
     },
     body: JSON.stringify(req),
   })
   t.end()
 
 })
-
 
 test('fetchConfigFromReq - strip non-standard keys', (t) => {
 
@@ -89,14 +87,14 @@ test('fetchConfigFromReq - source specified for request origin in header', (t) =
     origin: 'happydapp.eth',
   }
 
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source:'eth-json-rpc-infura' })
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source: 'eth-json-rpc-infura' })
   t.equals(fetchUrl, 'https://api.infura.io/v1/jsonrpc/ropsten')
   t.deepEquals(fetchParams, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Infura-Source': 'eth-json-rpc-infura/happydapp.eth'
+      'Infura-Source': 'eth-json-rpc-infura/happydapp.eth',
     },
     body: fetchParams.body,
   })
