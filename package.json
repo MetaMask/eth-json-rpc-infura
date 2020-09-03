@@ -5,6 +5,9 @@
   "directories": {
     "test": "test"
   },
+  "files": [
+    "src/*.js"
+  ],
   "dependencies": {
     "eth-json-rpc-middleware": "^4.4.0",
     "eth-rpc-errors": "^3.0.0",
