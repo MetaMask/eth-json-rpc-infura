@@ -14,5 +14,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]:https://github.com/MetaMask/eslint-config/compare/v4.1.0...HEAD
-[4.1.0]:https://github.com/MetaMask/eslint-config/compare/v4.0.2...v4.1.0
+[Unreleased]:https://github.com/MetaMask/eth-json-rpc-infura/compare/v4.1.0...HEAD
+[4.1.0]:https://github.com/MetaMask/eth-json-rpc-infura/compare/v4.0.2...v4.1.0
