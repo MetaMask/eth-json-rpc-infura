@@ -16,15 +16,17 @@ const RETRIABLE_ERRORS = [
 module.exports = createInfuraMiddleware
 module.exports.fetchConfigFromReq = fetchConfigFromReq
 
-function createInfuraMiddleware(opts = {}) {
+function createInfuraMiddleware (opts = {}) {
   const network = opts.network || 'mainnet'
   const maxAttempts = opts.maxAttempts || 5
-  const source = opts.source
+  const { source } = opts
 
   // validate options
-  if (!maxAttempts) throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
+  if (!maxAttempts) {
+    throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
+  }
 
-  return createAsyncMiddleware(async (req, res, next) => {
+  return createAsyncMiddleware(async (req, res) => {
     // retry MAX_ATTEMPTS times, if error matches filter
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
@@ -54,18 +56,18 @@ function createInfuraMiddleware(opts = {}) {
   })
 }
 
-function timeout(length) {
+function timeout (length) {
   return new Promise((resolve) => {
     setTimeout(resolve, length)
   })
 }
 
-function isRetriableError(err) {
+function isRetriableError (err) {
   const errMessage = err.toString()
-  return RETRIABLE_ERRORS.some(phrase => errMessage.includes(phrase))
+  return RETRIABLE_ERRORS.some((phrase) => errMessage.includes(phrase))
 }
 
-async function performFetch(network, req, res, source){
+async function performFetch (network, req, res, source) {
   const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source })
   const response = await fetch(fetchUrl, fetchParams)
   const rawData = await response.text()
@@ -101,7 +103,7 @@ async function performFetch(network, req, res, source){
   res.error = data.error
 }
 
-function fetchConfigFromReq({ network, req, source }) {
+function fetchConfigFromReq ({ network, req, source }) {
   const requestOrigin = req.origin || 'internal'
   const cleanReq = normalizeReq(req)
   const { method, params } = cleanReq
@@ -113,15 +115,17 @@ function fetchConfigFromReq({ network, req, source }) {
     fetchParams.method = 'POST'
     fetchParams.headers = {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     }
-    if (source) fetchParams.headers['Infura-Source'] = `${source}/${requestOrigin}`
+    if (source) {
+      fetchParams.headers['Infura-Source'] = `${source}/${requestOrigin}`
+    }
     fetchParams.body = JSON.stringify(cleanReq)
   } else {
     fetchParams.method = 'GET'
     if (source) {
       fetchParams.headers = {
-        'Infura-Source': `${source}/${requestOrigin}`
+        'Infura-Source': `${source}/${requestOrigin}`,
       }
     }
     const paramsString = encodeURIComponent(JSON.stringify(params))
@@ -132,7 +136,7 @@ function fetchConfigFromReq({ network, req, source }) {
 }
 
 // strips out extra keys that could be rejected by strict nodes like parity
-function normalizeReq(req) {
+function normalizeReq (req) {
   return {
     id: req.id,
     jsonrpc: req.jsonrpc,
@@ -142,7 +146,7 @@ function normalizeReq(req) {
 }
 
 function createRatelimitError () {
-  let msg = `Request is being rate limited.`
+  const msg = `Request is being rate limited.`
   return createInternalError(msg)
 }
 
