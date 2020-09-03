@@ -2,7 +2,6 @@ const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware
 const { ethErrors: rpcErrors } = require('eth-rpc-errors')
 const fetch = require('node-fetch')
 
-const POST_METHODS = ['eth_call', 'eth_estimateGas', 'eth_sendRawTransaction']
 const RETRIABLE_ERRORS = [
   // ignore server overload errors
   'Gateway timeout',
@@ -19,9 +18,15 @@ module.exports.fetchConfigFromReq = fetchConfigFromReq
 function createInfuraMiddleware (opts = {}) {
   const network = opts.network || 'mainnet'
   const maxAttempts = opts.maxAttempts || 5
-  const { source } = opts
+  const { source, projectId, headers = {} } = opts
 
   // validate options
+  if (!projectId || typeof projectId !== 'string') {
+    throw new Error(`Invalid value for 'projectId': "${projectId}"`)
+  }
+  if (!headers || typeof headers !== 'object') {
+    throw new Error(`Invalid value for 'headers': "${headers}"`)
+  }
   if (!maxAttempts) {
     throw new Error(`Invalid value for 'maxAttempts': "${maxAttempts}" (${typeof maxAttempts})`)
   }
@@ -31,7 +36,7 @@ function createInfuraMiddleware (opts = {}) {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         // attempt request
-        await performFetch(network, req, res, source)
+        await performFetch(network, projectId, headers, req, res, source)
         // request was successful
         break
       } catch (err) {
@@ -67,8 +72,8 @@ function isRetriableError (err) {
   return RETRIABLE_ERRORS.some((phrase) => errMessage.includes(phrase))
 }
 
-async function performFetch (network, req, res, source) {
-  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, req, source })
+async function performFetch (network, projectId, extraHeaders, req, res, source) {
+  const { fetchUrl, fetchParams } = fetchConfigFromReq({ network, projectId, extraHeaders, req, source })
   const response = await fetch(fetchUrl, fetchParams)
   const rawData = await response.text()
   // handle errors
@@ -77,7 +82,7 @@ async function performFetch (network, req, res, source) {
       case 405:
         throw rpcErrors.rpc.methodNotFound()
 
-      case 418:
+      case 429:
         throw createRatelimitError()
 
       case 503:
@@ -103,36 +108,26 @@ async function performFetch (network, req, res, source) {
   res.error = data.error
 }
 
-function fetchConfigFromReq ({ network, req, source }) {
+function fetchConfigFromReq ({ network, projectId, extraHeaders, req, source }) {
   const requestOrigin = req.origin || 'internal'
-  const cleanReq = normalizeReq(req)
-  const { method, params } = cleanReq
-
-  const fetchParams = {}
-  let fetchUrl = `https://api.infura.io/v1/jsonrpc/${network}`
-  const isPostMethod = POST_METHODS.includes(method)
-  if (isPostMethod) {
-    fetchParams.method = 'POST'
-    fetchParams.headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-    if (source) {
-      fetchParams.headers['Infura-Source'] = `${source}/${requestOrigin}`
-    }
-    fetchParams.body = JSON.stringify(cleanReq)
-  } else {
-    fetchParams.method = 'GET'
-    if (source) {
-      fetchParams.headers = {
-        'Infura-Source': `${source}/${requestOrigin}`,
-      }
-    }
-    const paramsString = encodeURIComponent(JSON.stringify(params))
-    fetchUrl += `/${method}?params=${paramsString}`
+  const headers = {
+    ...extraHeaders,
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
   }
 
-  return { fetchUrl, fetchParams }
+  if (source) {
+    headers['Infura-Source'] = `${source}/${requestOrigin}`
+  }
+
+  return {
+    fetchUrl: `https://${network}.infura.io/v3/${projectId}`,
+    fetchParams: {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(normalizeReq(req)),
+    },
+  }
 }
 
 // strips out extra keys that could be rejected by strict nodes like parity
