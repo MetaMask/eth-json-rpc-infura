@@ -110,11 +110,10 @@ async function performFetch (network, projectId, extraHeaders, req, res, source)
 
 function fetchConfigFromReq ({ network, projectId, extraHeaders, req, source }) {
   const requestOrigin = req.origin || 'internal'
-  const headers = {
-    ...extraHeaders,
+  const headers = Object.assign({}, extraHeaders, {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-  }
+  })
 
   if (source) {
     headers['Infura-Source'] = `${source}/${requestOrigin}`
