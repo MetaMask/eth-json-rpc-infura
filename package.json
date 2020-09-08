@@ -24,15 +24,14 @@
     "lint": "eslint --ext .js .",
     "test": "node test/index.js"
   },
-  "author": "",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kumavis/eth-json-rpc-infura.git"
+    "url": "git+https://github.com/MetaMask/eth-json-rpc-infura.git"
   },
   "bugs": {
-    "url": "https://github.com/kumavis/eth-json-rpc-infura/issues"
+    "url": "https://github.com/MetaMask/eth-json-rpc-infura/issues"
   },
-  "homepage": "https://github.com/kumavis/eth-json-rpc-infura#readme",
-  "description": ""
+  "homepage": "https://github.com/MetaMask/eth-json-rpc-infura#readme",
+  "description": "json-rpc-engine middleware for Infura's endpoints"
 }
