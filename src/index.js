@@ -1,5 +1,5 @@
 const createAsyncMiddleware = require('json-rpc-engine/src/createAsyncMiddleware')
-const { ethErrors: rpcErrors } = require('eth-rpc-errors')
+const { ethErrors } = require('eth-rpc-errors')
 const fetch = require('node-fetch')
 
 const RETRIABLE_ERRORS = [
@@ -80,7 +80,7 @@ async function performFetch (network, projectId, extraHeaders, req, res, source)
   if (!response.ok) {
     switch (response.status) {
       case 405:
-        throw rpcErrors.rpc.methodNotFound()
+        throw ethErrors.rpc.methodNotFound()
 
       case 429:
         throw createRatelimitError()
@@ -151,5 +151,5 @@ function createTimeoutError () {
 }
 
 function createInternalError (msg) {
-  return rpcErrors.rpc.internal(msg)
+  return ethErrors.rpc.internal(msg)
 }
