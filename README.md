@@ -21,3 +21,9 @@ const RpcEngine = require('json-rpc-engine')
 const engine = new RpcEngine()
 engine.push(createInfuraMiddleware({ network: 'ropsten', projectId: 'example' }))
 ```
+
+## Running Tests
+
+```bash
+yarn test
+```
