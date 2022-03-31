@@ -1,25 +1,22 @@
 module.exports = {
   root: true,
 
-  extends: [
-    '@metamask/eslint-config',
-    '@metamask/eslint-config/config/nodejs',
+  extends: ['@metamask/eslint-config'],
+
+  overrides: [
+    {
+      files: ['*.js'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+      extends: ['@metamask/eslint-config-nodejs'],
+    },
+
+    {
+      files: ['*.test.ts', '*.test.js'],
+      extends: ['@metamask/eslint-config-jest'],
+    },
   ],
 
-  parserOptions: {
-    ecmaVersion: 2017,
-    ecmaFeatures: {
-      arrowFunctions: true,
-      classes: true,
-    },
-  },
-
-  overrides: [{
-    files: [
-      '.eslintrc.js',
-    ],
-    parserOptions: {
-      sourceType: 'script',
-    },
-  }],
-}
+  ignorePatterns: ['!.eslintrc.js', '!.prettierrc.js', 'dist/'],
+};
