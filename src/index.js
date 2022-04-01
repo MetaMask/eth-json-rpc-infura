@@ -193,11 +193,11 @@ async function performFetch(
  * @param {string} options.network - A network that Infura supports; plugs into
  * `https://${network}.infura.io`.
  * @param {string} options.projectId - The Infura project id.
- * @param {Record<string, string>} options.extraHeaders - Extra headers that
+ * @param {Record<string, string>} [options.extraHeaders] - Extra headers that
  * will be used to make the request.
  * @param {object} options.req - The original request object obtained via the
  * middleware stack.
- * @param {string} options.source - A descriptor for the entity making the
+ * @param {string} [options.source] - A descriptor for the entity making the
  * request; tracked by Infura for analytics purposes.
  * @returns {FetchConfig} An object containing the URL and a bag of options,
  * both of which will be passed to {@link fetch}.
