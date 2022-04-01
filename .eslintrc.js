@@ -5,13 +5,8 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.js'],
+      files: ['.eslintrc.js', '.prettierrc.js', 'test/*.js'],
       extends: ['@metamask/eslint-config-nodejs'],
-    },
-
-    {
-      files: ['*.test.ts', '*.test.js'],
-      extends: ['@metamask/eslint-config-jest'],
     },
   ],
 
