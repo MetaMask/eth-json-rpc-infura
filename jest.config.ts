@@ -3,7 +3,9 @@
  * https://jestjs.io/docs/configuration
  */
 
-module.exports = {
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -22,7 +24,7 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['./src/**/*.js'],
+  collectCoverageFrom: ['./src/**/*.ts'],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -39,6 +41,7 @@ module.exports = {
   coverageReporters: ['text', 'html'],
 
   // An object that configures minimum threshold enforcement for coverage results
+  // TODO: Fix lack of coverage and restore to 100%
   coverageThreshold: {
     global: {
       branches: 80,
@@ -97,7 +100,7 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -202,3 +205,5 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
+
+export default config;
