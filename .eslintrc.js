@@ -6,9 +6,6 @@ module.exports = {
   overrides: [
     {
       files: ['*.js'],
-      parserOptions: {
-        sourceType: 'script',
-      },
       extends: ['@metamask/eslint-config-nodejs'],
     },
 
