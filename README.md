@@ -5,11 +5,11 @@ infura's REST endpoints.
 
 ## Installation
 
-`yarn add @metamask/this-module`
+`yarn add @metamask/eth-json-rpc-infura`
 
 or
 
-`npm install @metamask/this-module`
+`npm install @metamask/eth-json-rpc-infura`
 
 ## Usage
 
