@@ -1,16 +1,28 @@
 {
   "name": "eth-json-rpc-infura",
   "version": "5.1.0",
+  "description": "json-rpc-engine middleware for Infura's endpoints",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MetaMask/eth-json-rpc-infura.git"
+  },
+  "license": "ISC",
   "main": "src/index.js",
-  "directories": {
-    "test": "test"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
   "files": [
     "src/*.js"
   ],
+  "scripts": {
+    "build": "echo 'nothing to build yet'",
+    "build:clean": "rimraf dist && yarn build",
+    "lint": "yarn lint:eslint && yarn lint:misc --check",
+    "lint:eslint": "eslint . --cache --ext js,ts",
+    "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
+    "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' '**/*.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "prepublishOnly": "yarn build:clean && yarn lint && yarn test",
+    "setup": "yarn install && yarn allow-scripts",
+    "test": "node test/index.js",
+    "test:watch": "echo 'this doesnt work yet'"
+  },
   "dependencies": {
     "eth-json-rpc-middleware": "^6.0.0",
     "eth-rpc-errors": "^3.0.0",
@@ -18,23 +30,33 @@
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
-    "@metamask/eslint-config": "^3.0.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.1",
+    "@lavamoat/allow-scripts": "^2.0.2",
+    "@metamask/auto-changelog": "^2.5.0",
+    "@metamask/eslint-config": "^9.0.0",
+    "@metamask/eslint-config-nodejs": "^9.0.0",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.6.1",
+    "prettier-plugin-packagejson": "^2.2.17",
+    "rimraf": "^3.0.2",
     "tape": "^4.8.0"
   },
-  "scripts": {
-    "lint": "eslint --ext .js .",
-    "test": "node test/index.js"
+  "engines": {
+    "node": ">=12.0.0"
   },
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MetaMask/eth-json-rpc-infura.git"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
-  "bugs": {
-    "url": "https://github.com/MetaMask/eth-json-rpc-infura/issues"
-  },
-  "homepage": "https://github.com/MetaMask/eth-json-rpc-infura#readme",
-  "description": "json-rpc-engine middleware for Infura's endpoints"
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail": false,
+      "eth-json-rpc-middleware>ethereumjs-util>ethereum-cryptography>keccak": true,
+      "eth-json-rpc-middleware>ethereumjs-util>ethereum-cryptography>secp256k1": true
+    }
+  }
 }
