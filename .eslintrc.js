@@ -8,6 +8,11 @@ module.exports = {
       files: ['*.js'],
       extends: ['@metamask/eslint-config-nodejs'],
     },
+
+    {
+      files: ['*.test.js'],
+      extends: ['@metamask/eslint-config-jest'],
+    },
   ],
 
   ignorePatterns: ['!.eslintrc.js', '!.prettierrc.js', 'dist/'],
