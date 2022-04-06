@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/MetaMask/eth-json-rpc-infura.git"
   },
+  "license": "ISC",
   "main": "src/index.js",
   "files": [
     "src/*.js"
