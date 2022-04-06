@@ -27,22 +27,22 @@ module.exports.fetchConfigFromReq = fetchConfigFromReq;
  */
 
 /**
- * Builds {@link json-rpc-engine}-compatible middleware designed for interfacing
- * with Infura's JSON-RPC endpoints.
+ * Builds [`json-rpc-engine`](https://github.com/MetaMask/json-rpc-engine)-compatible middleware designed
+ * for interfacing with Infura's JSON-RPC endpoints.
  *
- * @param {object} [opts] - The options (default: {}).
+ * @param {object} opts - The options.
  * @param {string} [opts.network] - A network that Infura supports; plugs into
  * `https://${network}.infura.io` (default: 'mainnet').
  * @param {number} [opts.maxAttempts] - The number of times a request to Infura
  * should be retried in the case of failure (default: 5).
  * @param {string} [opts.source] - A descriptor for the entity making the
  * request; tracked by Infura for analytics purposes.
- * @param {string} [opts.projectId] - The Infura project id.
- * @param {Record<string, string>} [opts.headers] - Extra headers that will be
+ * @param {string} opts.projectId - The Infura project id.
+ * @param {Record<string, string>} opts.headers - Extra headers that will be
  * used to make the request.
  * @returns {Function} The middleware.
  */
-function createInfuraMiddleware(opts = {}) {
+function createInfuraMiddleware(opts) {
   const network = opts.network || 'mainnet';
   const maxAttempts = opts.maxAttempts || 5;
   const { source, projectId, headers = {} } = opts;
@@ -187,7 +187,7 @@ async function performFetch(
 }
 
 /**
- * Determines the arguments to feed into {@link fetch}.
+ * Determines the arguments to feed into `fetch`.
  *
  * @param {object} options - The options.
  * @param {string} options.network - A network that Infura supports; plugs into
@@ -200,7 +200,7 @@ async function performFetch(
  * @param {string} [options.source] - A descriptor for the entity making the
  * request; tracked by Infura for analytics purposes.
  * @returns {FetchConfig} An object containing the URL and a bag of options,
- * both of which will be passed to {@link fetch}.
+ * both of which will be passed to `fetch`.
  */
 function fetchConfigFromReq({ network, projectId, extraHeaders, req, source }) {
   const requestOrigin = req.origin || 'internal';
