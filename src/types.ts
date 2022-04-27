@@ -25,7 +25,4 @@ export type InfuraJsonRpcSupportedNetwork =
   | 'optimism-mainnet'
   | 'optimism-kovan'
   | 'arbitrum-mainnet'
-  | 'arbitrum-rinkeby'
-  // Legacy networks for compatibility with NetworkController
-  | 'optimism'
-  | 'optimismTest';
+  | 'arbitrum-rinkeby';
