@@ -192,10 +192,8 @@ function createTimeoutError(): EthereumRpcError<unknown> {
  * @param msg - The message.
  * @returns The error object.
  */
-function createInternalError<T>(
-  msg: string | EthereumErrorOptions<T> | undefined,
-): EthereumRpcError<T> {
-  return ethErrors.rpc.internal<T>(msg);
+function createInternalError(msg: string): EthereumRpcError<unknown> {
+  return ethErrors.rpc.internal(msg);
 }
 
 /**
