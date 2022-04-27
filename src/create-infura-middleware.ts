@@ -10,11 +10,6 @@ import type {
 } from './types';
 import { fetchConfigFromReq } from './fetch-config-from-req';
 
-interface EthereumErrorOptions<T> {
-  message?: string;
-  data?: T;
-}
-
 export interface CreateInfuraMiddlewareOptions {
   network?: InfuraJsonRpcSupportedNetwork;
   maxAttempts?: number;
