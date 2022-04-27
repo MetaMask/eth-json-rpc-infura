@@ -1,6 +1,3 @@
-export {
-  default as createInfuraMiddleware,
-  CreateInfuraMiddlewareOptions,
-} from './createInfuraMiddleware';
-export { default as fetchConfigFromReq } from './fetchConfigFromReq';
-export { default as createProvider } from './createProvider';
+export * from './create-infura-middleware';
+export * from './fetch-config-from-req';
+export * from './create-provider';

@@ -8,7 +8,7 @@ import type {
   InfuraJsonRpcSupportedNetwork,
   RequestHeaders,
 } from './types';
-import fetchConfigFromReq from './fetchConfigFromReq';
+import { fetchConfigFromReq } from './fetch-config-from-req';
 
 interface EthereumErrorOptions<T> {
   message?: string;
@@ -48,7 +48,7 @@ const RETRIABLE_ERRORS = [
  * @param opts.headers - Extra headers that will be used to make the request.
  * @returns The `json-rpc-engine`-compatible middleware.
  */
-export default function createInfuraMiddleware({
+export function createInfuraMiddleware({
   network = 'mainnet',
   maxAttempts = 5,
   source,

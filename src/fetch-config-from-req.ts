@@ -31,7 +31,7 @@ interface FetchConfig {
  * @returns An object containing the URL and a bag of options, both of which
  * will be passed to `fetch`.
  */
-export default function fetchConfigFromReq({
+export function fetchConfigFromReq({
   network,
   projectId,
   extraHeaders = {},
