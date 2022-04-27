@@ -1,6 +1,6 @@
 import { JsonRpcEngine } from 'json-rpc-engine';
 import { providerFromEngine } from 'eth-json-rpc-middleware';
-import { SafeEventEmitterProvider } from 'eth-json-rpc-middleware/dist/utils/cache';
+import type { SafeEventEmitterProvider } from 'eth-json-rpc-middleware';
 import {
   createInfuraMiddleware,
   CreateInfuraMiddlewareOptions,
