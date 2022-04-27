@@ -16,7 +16,7 @@ import {
  * @returns The provider as returned by `providerFromEngine` (a part of
  * [`eth-json-rpc-middleware`](https://github.com/MetaMask/eth-json-rpc-middleware)).
  */
-export default function createProvider(
+export function createProvider(
   opts: CreateInfuraMiddlewareOptions,
 ): SafeEventEmitterProvider {
   const engine = new JsonRpcEngine();
