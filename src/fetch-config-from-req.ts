@@ -42,7 +42,7 @@ export function fetchConfigFromReq({
   projectId: string;
   extraHeaders?: RequestHeaders;
   req: ExtendedJsonRpcRequest<unknown>;
-  source?: string | undefined;
+  source?: string;
 }): FetchConfig {
   const requestOrigin = req.origin || 'internal';
   const headers = Object.assign({}, extraHeaders, {
