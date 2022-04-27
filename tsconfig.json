@@ -1,17 +1,12 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
-    "forceConsistentCasingInFileNames": true,
-    "inlineSources": true,
     "lib": ["ES2020"],
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
     "strict": true,
-    "target": "ES2017"
-  }
+    "target": "es2017"
+  },
+  "exclude": ["./dist/**/*"]
 }
