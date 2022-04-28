@@ -165,7 +165,7 @@ async function performFetch(
  *
  * @returns The error object.
  */
-function createRatelimitError(): EthereumRpcError<unknown> {
+function createRatelimitError(): EthereumRpcError<undefined> {
   const msg = `Request is being rate limited.`;
   return createInternalError(msg);
 }
@@ -175,7 +175,7 @@ function createRatelimitError(): EthereumRpcError<unknown> {
  *
  * @returns The error object.
  */
-function createTimeoutError(): EthereumRpcError<unknown> {
+function createTimeoutError(): EthereumRpcError<undefined> {
   let msg = `Gateway timeout. The request took too long to process. `;
   msg += `This can happen when querying logs over too wide a block range.`;
   return createInternalError(msg);
@@ -187,7 +187,7 @@ function createTimeoutError(): EthereumRpcError<unknown> {
  * @param msg - The message.
  * @returns The error object.
  */
-function createInternalError(msg: string): EthereumRpcError<unknown> {
+function createInternalError(msg: string): EthereumRpcError<undefined> {
   return ethErrors.rpc.internal(msg);
 }
 
