@@ -25,7 +25,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "eth-json-rpc-middleware": "MetaMask/eth-json-rpc-middleware#e6552db452a167057efc695d18c4e35364051bb6",
+    "eth-json-rpc-middleware": "^8.1.0",
     "eth-rpc-errors": "^4.0.3",
     "json-rpc-engine": "^6.1.0",
     "node-fetch": "^2.6.7"

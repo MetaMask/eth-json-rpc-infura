@@ -2168,9 +2168,10 @@ eth-block-tracker@^5.0.1:
     json-rpc-random-id "^1.0.1"
     pify "^3.0.0"
 
-eth-json-rpc-middleware@MetaMask/eth-json-rpc-middleware#e6552db452a167057efc695d18c4e35364051bb6:
-  version "8.0.2"
-  resolved "https://codeload.github.com/MetaMask/eth-json-rpc-middleware/tar.gz/e6552db452a167057efc695d18c4e35364051bb6"
+eth-json-rpc-middleware@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/eth-json-rpc-middleware/-/eth-json-rpc-middleware-8.1.0.tgz#d2bf980768b43dcbcb7830ed1fcc34a16f63074d"
+  integrity sha512-0ZZDr6KoddqN4N100a7YWzLTYrVN0P49DJ3Su1vsRavPpieq92rgZymnQcr0tLFBQDEJg1MVqLex46fA0GEkDA==
   dependencies:
     "@metamask/safe-event-emitter" "^2.0.0"
     btoa "^1.2.1"
