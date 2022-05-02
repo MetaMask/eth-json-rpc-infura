@@ -10,7 +10,12 @@ module.exports = {
     },
 
     {
-      files: ['*.test.js'],
+      files: ['*.ts'],
+      extends: ['@metamask/eslint-config-typescript'],
+    },
+
+    {
+      files: ['*.test.ts'],
       extends: ['@metamask/eslint-config-jest'],
     },
   ],
