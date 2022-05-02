@@ -6,6 +6,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.0] - 2022-05-02
+### Added
+- Add TypeScript type definitions ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
+
+### Changed
+- Rename package to `@metamask/eth-json-rpc-infura` ([#61](https://github.com/MetaMask/eth-json-rpc-infura/pull/61))
+  - `eth-json-rpc-infura` is deprecated and future releases will no longer occur under this name.
+- **BREAKING:** Upgrade dependencies to make use of new TypeScript type definitions ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
+  - `eth-json-rpc-middleware`: ^6.0.0 -> ^8.1.0 ([changelog](https://github.com/MetaMask/eth-json-rpc-middleware/blob/main/CHANGELOG.md#810))
+  - `eth-rpc-errors`: ^3.0.0 -> ^4.0.3 ([changelog](https://github.com/MetaMask/eth-rpc-errors/blob/main/CHANGELOG.md#403---2021-03-10))
+  - `json-rpc-engine`: ^5.3.0 -> ^6.1.0 ([changelog](https://github.com/MetaMask/json-rpc-engine/blob/main/CHANGELOG.md#610---2020-11-20))
+- **BREAKING:** Simplify exports ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
+  - All existing exports are now available under the package entrypoint. For instance, instead of:
+    ```
+    import createProvider from 'eth-json-rpc-infura/src/createProvider';
+    ```
+    you must now say:
+    ```
+    import { createProvider } from '@metamask/eth-json-rpc-infura';
+    ```
+
+### Security
+- Upgrade `node-fetch` to ^2.6.7 ([#42](https://github.com/MetaMask/eth-json-rpc-infura/pull/42), [#53](https://github.com/MetaMask/eth-json-rpc-infura/pull/53))
+  - This addresses [GHSA-r683-j2x4-v87g](https://github.com/advisories/GHSA-r683-j2x4-v87g).
+
 ## [5.1.0] - 2020-09-22
 ### Changed
 - Update RPC packages ([#40](https://github.com/MetaMask/eth-json-rpc-infura/pull/40))
@@ -22,7 +47,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v4.1.0...v5.0.0
 [4.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/releases/tag/v4.1.0
