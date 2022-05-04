@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [6.0.0] - 2022-05-02
+## [6.0.0] - 2022-05-04
 ### Added
 - Add TypeScript type definitions ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
 
@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     ```
     import { createProvider } from '@metamask/eth-json-rpc-infura';
     ```
+- **BREAKING:** Add required Node version of >= 12 ([#44](https://github.com/MetaMask/eth-json-rpc-infura/pull/44))
 
 ### Security
 - Upgrade `node-fetch` to ^2.6.7 ([#42](https://github.com/MetaMask/eth-json-rpc-infura/pull/42), [#53](https://github.com/MetaMask/eth-json-rpc-infura/pull/53))
