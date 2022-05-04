@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Rename package to `@metamask/eth-json-rpc-infura` ([#61](https://github.com/MetaMask/eth-json-rpc-infura/pull/61))
   - `eth-json-rpc-infura` is deprecated and future releases will no longer occur under this name.
-- **BREAKING:** Upgrade dependencies to make use of new TypeScript type definitions ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
+- Upgrade dependencies to make use of new TypeScript type definitions ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
   - `eth-json-rpc-middleware`: ^6.0.0 -> ^8.1.0 ([changelog](https://github.com/MetaMask/eth-json-rpc-middleware/blob/main/CHANGELOG.md#810))
   - `eth-rpc-errors`: ^3.0.0 -> ^4.0.3 ([changelog](https://github.com/MetaMask/eth-rpc-errors/blob/main/CHANGELOG.md#403---2021-03-10))
   - `json-rpc-engine`: ^5.3.0 -> ^6.1.0 ([changelog](https://github.com/MetaMask/json-rpc-engine/blob/main/CHANGELOG.md#610---2020-11-20))
