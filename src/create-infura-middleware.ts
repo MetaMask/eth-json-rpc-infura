@@ -9,6 +9,7 @@ import type {
   RequestHeaders,
 } from './types';
 import { fetchConfigFromReq } from './fetch-config-from-req';
+import { projectLogger, createModuleLogger } from './logging-utils';
 
 export interface CreateInfuraMiddlewareOptions {
   network?: InfuraJsonRpcSupportedNetwork;
@@ -18,6 +19,7 @@ export interface CreateInfuraMiddlewareOptions {
   headers?: Record<string, string>;
 }
 
+const log = createModuleLogger(projectLogger, 'create-infura-middleware');
 const RETRIABLE_ERRORS = [
   // ignore server overload errors
   'Gateway timeout',
@@ -70,6 +72,13 @@ export function createInfuraMiddleware({
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         // attempt request
+        log(
+          'Attempting request to Infura. network = %o, projectId = %s, headers = %o, req = %o',
+          network,
+          projectId,
+          headers,
+          req,
+        );
         await performFetch(network, projectId, headers, req, res, source);
         // request was successful
         break;
@@ -78,16 +87,36 @@ export function createInfuraMiddleware({
         // if not retriable, resolve with the encountered error
         if (!isRetriableError(err)) {
           // abort with error
+          log(
+            'Non-retriable request error encountered. req = %o, res = %o, error = %o',
+            req,
+            res,
+            err,
+          );
           throw err;
         }
         // if no more attempts remaining, throw an error
         const remainingAttempts = maxAttempts - attempt;
         if (!remainingAttempts) {
+          log(
+            'Retriable request error encountered, but exceeded max attempts. req = %o, res = %o, error = %o',
+            req,
+            res,
+            err,
+          );
           const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${err.toString()}\n\n`;
           const retriesExhaustedErr = new Error(errMsg);
           throw retriesExhaustedErr;
         }
+
         // otherwise, ignore error and retry again after timeout
+        log(
+          'Retriable request error encountered. req = %o, res = %o, error = %o',
+          req,
+          res,
+          err,
+        );
+        log('Waiting 1 second to try again...');
         await timeout(1000);
       }
     }
