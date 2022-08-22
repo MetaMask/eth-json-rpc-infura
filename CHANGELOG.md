@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.0.0]
+### Added
+- Add logging ([#63](https://github.com/MetaMask/eth-json-rpc-infura/pull/63))
+  - You will not be able to see log messages by default, but you can turn them on for this library by setting the `DEBUG` environment variable to `metamask:eth-json-rpc-infura:*` or `metamask:*`.
+
+### Changed
+- **BREAKING:** Require Node >= 14 ([#62](https://github.com/MetaMask/eth-json-rpc-infura/pull/62))
+
 ## [6.0.0] - 2022-05-04
 ### Added
 - Add TypeScript type definitions ([#58](https://github.com/MetaMask/eth-json-rpc-infura/pull/58))
@@ -48,7 +56,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v6.0.0...v7.0.0
 [6.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v4.1.0...v5.0.0
