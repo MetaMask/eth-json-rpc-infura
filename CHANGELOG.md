@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [7.0.0]
-### Uncategorized
+### Added
 - Add logging ([#63](https://github.com/MetaMask/eth-json-rpc-infura/pull/63))
-- Drop Node 12, bump minimum Node to >= 14 ([#62](https://github.com/MetaMask/eth-json-rpc-infura/pull/62))
+  - You will not be able to see log messages by default, but you can turn them on for this library by setting the `DEBUG` environment variable to `metamask:eth-json-rpc-infura:*` or `metamask:*`.
+
+### Changed
+- **BREAKING:** Require Node >= 14 ([#62](https://github.com/MetaMask/eth-json-rpc-infura/pull/62))
 
 ## [6.0.0] - 2022-05-04
 ### Added
