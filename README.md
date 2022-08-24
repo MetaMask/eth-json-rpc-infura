@@ -1,7 +1,7 @@
 # eth-json-rpc-infura
 
 [`json-rpc-engine`](https://github.com/MetaMask/json-rpc-engine) middleware for
-infura's REST endpoints.
+Infura's REST endpoints.
 
 ## Installation
 
@@ -16,29 +16,42 @@ or
 ### Creating a provider
 
 ```js
-const createInfuraProvider = require('eth-json-rpc-infura/src/createProvider');
-const Eth = require('ethjs');
+const { createInfuraProvider } = require('@metamask/eth-json-rpc-infura');
+const EthQuery = require('eth-query');
 
 const provider = createInfuraProvider({
   network: 'ropsten',
   projectId: 'abcdef1234567890',
 });
-const eth = new Eth(provider);
+const ethQuery = new EthQuery(provider);
+ethQuery.blockNumber((err, result) => {
+  if (err) {
+    // do something with the error
+  } else {
+    // use the result in some way
+  }
+});
 ```
 
-### Creating middleware
+### Creating `json-rpc-engine` middleware
 
 ```js
-const createInfuraMiddleware = require('eth-json-rpc-infura');
-const RpcEngine = require('json-rpc-engine');
+const { createInfuraMiddleware } = require('@metamask/eth-json-rpc-infura');
+const JsonRpcEngine = require('json-rpc-engine');
 
-const engine = new RpcEngine();
+const engine = new JsonRpcEngine();
 engine.push(
   createInfuraMiddleware({
     network: 'ropsten',
     projectId: 'abcdef1234567890',
   }),
 );
+const result = await engine.handle({
+  id: 1,
+  jsonrpc: '2.0',
+  method: 'eth_blockNumber',
+  params: [],
+});
 ```
 
 ## Contributing
