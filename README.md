@@ -30,7 +30,7 @@ ethQuery.blockNumber((err, result) => {
   } else {
     // use the result in some way
   }
-})
+});
 ```
 
 ### Creating `json-rpc-engine` middleware
@@ -50,7 +50,7 @@ const result = await engine.handle({
   id: 1,
   jsonrpc: '2.0',
   method: 'eth_blockNumber',
-  params: []
+  params: [],
 });
 ```
 
