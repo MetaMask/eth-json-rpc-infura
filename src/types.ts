@@ -16,6 +16,7 @@ export type InfuraJsonRpcSupportedNetwork =
   | 'rinkeby'
   | 'kovan'
   | 'goerli'
+  | 'sepolia'
   | 'eth2-beacon-mainnet'
   | 'filecoin'
   | 'polygon-mainnet'
