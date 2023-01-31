@@ -7,12 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [7.1.0]
-### Uncategorized
+### Changed
 - Update InfuraJsonRpcSupportedNetwork with supported networks ([#69](https://github.com/MetaMask/eth-json-rpc-infura/pull/69))
-- Bump json5 from 1.0.1 to 1.0.2 ([#68](https://github.com/MetaMask/eth-json-rpc-infura/pull/68))
-- Bump decode-uri-component from 0.2.0 to 0.2.2 ([#67](https://github.com/MetaMask/eth-json-rpc-infura/pull/67))
-- chore: update-eth-json-rpc-middleware ([#66](https://github.com/MetaMask/eth-json-rpc-infura/pull/66))
-- Correct usage examples in README ([#65](https://github.com/MetaMask/eth-json-rpc-infura/pull/65))
 
 ## [7.0.0]
 ### Added
