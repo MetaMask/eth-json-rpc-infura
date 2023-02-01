@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.0.0]
+### Uncategorized
+- Update InfuraJsonRpcSupportedNetwork with supported networks ([#69](https://github.com/MetaMask/eth-json-rpc-infura/pull/69))
+- Bump json5 from 1.0.1 to 1.0.2 ([#68](https://github.com/MetaMask/eth-json-rpc-infura/pull/68))
+- Bump decode-uri-component from 0.2.0 to 0.2.2 ([#67](https://github.com/MetaMask/eth-json-rpc-infura/pull/67))
+- chore: update-eth-json-rpc-middleware ([#66](https://github.com/MetaMask/eth-json-rpc-infura/pull/66))
+- Correct usage examples in README ([#65](https://github.com/MetaMask/eth-json-rpc-infura/pull/65))
+
 ## [7.0.0]
 ### Added
 - Add logging ([#63](https://github.com/MetaMask/eth-json-rpc-infura/pull/63))
@@ -56,7 +64,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v7.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.0.0...HEAD
+[8.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v6.0.0...v7.0.0
 [6.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.0.0...v5.1.0
