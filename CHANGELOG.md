@@ -8,7 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [8.0.0]
 ### Changed
-- Update InfuraJsonRpcSupportedNetwork with supported networks ([#69](https://github.com/MetaMask/eth-json-rpc-infura/pull/69))
+- **BREAKING:** Update `InfuraJsonRpcSupportedNetwork` with supported networks ([#69](https://github.com/MetaMask/eth-json-rpc-infura/pull/69))
+  - The following networks have been removed from this type because they are no longer supported by Infura:
+    - 'ropsten'
+    - 'rinkeby'
+    - 'kovan'
+    - 'eth2-beacon-mainnet'
+    - 'optimism-kovan'
+    - 'arbitrum-rinkeby'
 
 ## [7.0.0]
 ### Added
