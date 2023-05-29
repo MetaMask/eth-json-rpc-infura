@@ -33,4 +33,5 @@ export type InfuraJsonRpcSupportedNetwork =
   | 'near-testnet'
   | 'starknet-mainnet'
   | 'starknet-goerli'
-  | 'consensys-zkevm-goerli-prealpha';
+  | 'linea-goerli'
+  | 'linea-mainnet';
