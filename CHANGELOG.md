@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [8.1.0]
-### Uncategorized
-- feat: add new infura supported network ([#72](https://github.com/MetaMask/eth-json-rpc-infura/pull/72))
+### Added
+- Add `'linea-goerli` and `linea-mainnet` as Infura supported networks ([#72](https://github.com/MetaMask/eth-json-rpc-infura/pull/72))
 
 ## [8.0.0]
 ### Changed
