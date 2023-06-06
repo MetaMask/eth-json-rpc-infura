@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.1.0]
+### Added
+- Add `linea-goerli` and `linea-mainnet` as Infura supported networks ([#72](https://github.com/MetaMask/eth-json-rpc-infura/pull/72))
+
 ## [8.0.0]
 ### Changed
 - **BREAKING:** Update `InfuraJsonRpcSupportedNetwork` with supported networks ([#69](https://github.com/MetaMask/eth-json-rpc-infura/pull/69))
@@ -67,7 +71,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.0...HEAD
+[8.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.0.0...v8.1.0
 [8.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v6.0.0...v7.0.0
 [6.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v5.1.0...v6.0.0
