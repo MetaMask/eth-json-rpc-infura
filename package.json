@@ -1,6 +1,6 @@
 {
   "name": "@metamask/eth-json-rpc-infura",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "json-rpc-engine middleware for Infura's endpoints",
   "repository": {
     "type": "git",
