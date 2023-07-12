@@ -25,8 +25,8 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@metamask/utils": "^3.0.1",
-    "eth-json-rpc-middleware": "^9.0.0",
+    "@metamask/eth-json-rpc-provider": "^1.0.0",
+    "@metamask/utils": "^3.6.0",
     "eth-rpc-errors": "^4.0.3",
     "json-rpc-engine": "^6.1.0",
     "node-fetch": "^2.6.7"
@@ -39,7 +39,7 @@
     "@metamask/eslint-config-nodejs": "^9.0.0",
     "@metamask/eslint-config-typescript": "^9.0.1",
     "@types/jest": "^26.0.13",
-    "@types/node": "^17.0.23",
+    "@types/node": "^14.18.53",
     "@types/node-fetch": "^2.6.1",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
@@ -68,9 +68,7 @@
   },
   "lavamoat": {
     "allowScripts": {
-      "@lavamoat/preinstall-always-fail": false,
-      "eth-json-rpc-middleware>eth-sig-util>ethereumjs-util>ethereum-cryptography>keccak": true,
-      "eth-json-rpc-middleware>eth-sig-util>ethereumjs-util>ethereum-cryptography>secp256k1": true
+      "@lavamoat/preinstall-always-fail": false
     }
   }
 }
