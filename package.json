@@ -32,7 +32,7 @@
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
-    "@lavamoat/allow-scripts": "^2.0.2",
+    "@lavamoat/allow-scripts": "^2.3.1",
     "@metamask/auto-changelog": "^2.5.0",
     "@metamask/eslint-config": "^9.0.0",
     "@metamask/eslint-config-jest": "^9.0.0",
