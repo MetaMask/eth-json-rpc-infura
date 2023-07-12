@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.1.1]
+### Uncategorized
+- deps: @metamask/utils@^3.6.0->^4.0.0 ([#83](https://github.com/MetaMask/eth-json-rpc-infura/pull/83))
+- devDeps: @lavamoat/allow-scripts@2.0.2->2.3.1 ([#80](https://github.com/MetaMask/eth-json-rpc-infura/pull/80))
+- deps: replace eth-json-rpc-middleware with @metamask/eth-json-rpc-provider ([#82](https://github.com/MetaMask/eth-json-rpc-infura/pull/82))
+- ci: remove broken require-additional-reviewer workflow ([#81](https://github.com/MetaMask/eth-json-rpc-infura/pull/81))
+- Bump semver from 5.7.1 to 5.7.2 ([#79](https://github.com/MetaMask/eth-json-rpc-infura/pull/79))
+
 ## [8.1.0]
 ### Added
 - Add `linea-goerli` and `linea-mainnet` as Infura supported networks ([#72](https://github.com/MetaMask/eth-json-rpc-infura/pull/72))
@@ -71,7 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.1...HEAD
+[8.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.0...v8.1.1
 [8.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.0.0...v8.1.0
 [8.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v6.0.0...v7.0.0
