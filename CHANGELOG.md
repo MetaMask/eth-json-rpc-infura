@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8.1.2]
+### Uncategorized
+- Bump word-wrap from 1.2.3 to 1.2.4 ([#86](https://github.com/MetaMask/eth-json-rpc-infura/pull/86))
+
 ## [8.1.1]
 ### Changed
 - Bump `@metamask/utils` to `^4.0.0` ([#83](https://github.com/MetaMask/eth-json-rpc-infura/pull/83))
@@ -76,7 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.1...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...HEAD
+[8.1.2]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.1...v8.1.2
 [8.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.0...v8.1.1
 [8.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.0.0...v8.1.0
 [8.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v7.0.0...v8.0.0
