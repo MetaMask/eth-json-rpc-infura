@@ -1,18 +1,19 @@
 import type { JsonRpcRequest } from 'json-rpc-engine';
+
 import type {
   ExtendedJsonRpcRequest,
   RequestHeaders,
   InfuraJsonRpcSupportedNetwork,
 } from './types';
 
-interface FetchConfig {
+type FetchConfig = {
   fetchUrl: string;
   fetchParams: {
     method: string;
     headers: RequestHeaders;
     body: string;
   };
-}
+};
 
 /**
  * Determines the arguments to feed into `fetch` in order to make a request to
@@ -44,6 +45,7 @@ export function fetchConfigFromReq({
   req: ExtendedJsonRpcRequest<unknown>;
   source?: string;
 }): FetchConfig {
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const requestOrigin = req.origin || 'internal';
   const headers = Object.assign({}, extraHeaders, {
     Accept: 'application/json',

@@ -17,9 +17,7 @@ describe('fetchConfigFromReq', () => {
       body: JSON.parse(fetchParams.body),
     };
 
-    expect(fetchUrl).toStrictEqual(
-      'https://mainnet.infura.io/v3/abcdef1234567890',
-    );
+    expect(fetchUrl).toBe('https://mainnet.infura.io/v3/abcdef1234567890');
 
     expect(decodedFetchParams).toStrictEqual({
       method: 'POST',
@@ -53,9 +51,7 @@ describe('fetchConfigFromReq', () => {
       body: JSON.parse(fetchParams.body),
     };
 
-    expect(fetchUrl).toStrictEqual(
-      'https://mainnet.infura.io/v3/abcdef1234567890',
-    );
+    expect(fetchUrl).toBe('https://mainnet.infura.io/v3/abcdef1234567890');
 
     expect(decodedFetchParams).toStrictEqual({
       method: 'POST',
@@ -91,9 +87,7 @@ describe('fetchConfigFromReq', () => {
       body: JSON.parse(fetchParams.body),
     };
 
-    expect(fetchUrl).toStrictEqual(
-      'https://mainnet.infura.io/v3/abcdef1234567890',
-    );
+    expect(fetchUrl).toBe('https://mainnet.infura.io/v3/abcdef1234567890');
 
     expect(decodedFetchParams).toStrictEqual({
       method: 'POST',
@@ -130,9 +124,7 @@ describe('fetchConfigFromReq', () => {
       body: JSON.parse(fetchParams.body),
     };
 
-    expect(fetchUrl).toStrictEqual(
-      'https://mainnet.infura.io/v3/abcdef1234567890',
-    );
+    expect(fetchUrl).toBe('https://mainnet.infura.io/v3/abcdef1234567890');
 
     expect(decodedFetchParams).toStrictEqual({
       method: 'POST',
@@ -167,9 +159,7 @@ describe('fetchConfigFromReq', () => {
       body: JSON.parse(fetchParams.body),
     });
 
-    expect(fetchUrl).toStrictEqual(
-      'https://mainnet.infura.io/v3/abcdef1234567890',
-    );
+    expect(fetchUrl).toBe('https://mainnet.infura.io/v3/abcdef1234567890');
 
     expect(decodedFetchParams.body).toStrictEqual({
       id: 1,

@@ -1,23 +1,25 @@
-import type { PendingJsonRpcResponse } from 'json-rpc-engine';
-import { createAsyncMiddleware } from 'json-rpc-engine';
 import type { EthereumRpcError } from 'eth-rpc-errors';
 import { ethErrors } from 'eth-rpc-errors';
+import { createAsyncMiddleware } from 'json-rpc-engine';
+import type { PendingJsonRpcResponse } from 'json-rpc-engine';
+// eslint-disable-next-line @typescript-eslint/no-shadow
 import fetch from 'node-fetch';
+
+import { fetchConfigFromReq } from './fetch-config-from-req';
+import { projectLogger, createModuleLogger } from './logging-utils';
 import type {
   ExtendedJsonRpcRequest,
   InfuraJsonRpcSupportedNetwork,
   RequestHeaders,
 } from './types';
-import { fetchConfigFromReq } from './fetch-config-from-req';
-import { projectLogger, createModuleLogger } from './logging-utils';
 
-export interface CreateInfuraMiddlewareOptions {
+export type CreateInfuraMiddlewareOptions = {
   network?: InfuraJsonRpcSupportedNetwork;
   maxAttempts?: number;
   source?: string;
   projectId: string;
   headers?: Record<string, string>;
-}
+};
 
 const log = createModuleLogger(projectLogger, 'create-infura-middleware');
 const RETRIABLE_ERRORS = [
@@ -58,6 +60,7 @@ export function createInfuraMiddleware({
   }
 
   if (!headers || typeof headers !== 'object') {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     throw new Error(`Invalid value for 'headers': "${headers}"`);
   }
 
@@ -104,7 +107,7 @@ export function createInfuraMiddleware({
             res,
             err,
           );
-          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${err.toString()}\n\n`;
+          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${err.toString() as string}\n\n`;
           const retriesExhaustedErr = new Error(errMsg);
           throw retriesExhaustedErr;
         }
@@ -240,7 +243,7 @@ function isRetriableError(err: any): boolean {
  * @param length - The number of milliseconds to wait.
  * @returns A promise that resolves after the given time has elapsed.
  */
-function timeout(length: number): Promise<void> {
+async function timeout(length: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(resolve, length);
   });
