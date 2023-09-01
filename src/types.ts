@@ -2,7 +2,9 @@ import type { JsonRpcRequest } from 'json-rpc-engine';
 
 export type RequestHeaders = Record<string, string>;
 
-export type ExtendedJsonRpcRequest<Params> = JsonRpcRequest<Params> & { origin?: string };
+export type ExtendedJsonRpcRequest<Params> = JsonRpcRequest<Params> & {
+  origin?: string;
+};
 
 /**
  * These are networks:

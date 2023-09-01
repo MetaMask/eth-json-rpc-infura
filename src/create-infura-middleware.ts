@@ -107,7 +107,9 @@ export function createInfuraMiddleware({
             res,
             err,
           );
-          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${err.toString() as string}\n\n`;
+          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${
+            err.toString() as string
+          }\n\n`;
           const retriesExhaustedErr = new Error(errMsg);
           throw retriesExhaustedErr;
         }
