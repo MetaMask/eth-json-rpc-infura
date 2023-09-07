@@ -27,7 +27,7 @@
   "dependencies": {
     "@metamask/eth-json-rpc-provider": "^2.1.0",
     "@metamask/utils": "^8.1.0",
-    "eth-rpc-errors": "^4.0.3",
+    "@metamask/rpc-errors": "^6.0.0",
     "json-rpc-engine": "^6.1.0",
     "node-fetch": "^2.6.7"
   },
