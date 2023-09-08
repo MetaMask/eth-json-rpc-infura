@@ -1,6 +1,6 @@
 import { providerFromEngine } from '@metamask/eth-json-rpc-provider';
 import type { SafeEventEmitterProvider } from '@metamask/eth-json-rpc-provider';
-import { JsonRpcEngine } from 'json-rpc-engine';
+import { JsonRpcEngine } from '@metamask/json-rpc-engine';
 
 import type { CreateInfuraMiddlewareOptions } from './create-infura-middleware';
 import { createInfuraMiddleware } from './create-infura-middleware';

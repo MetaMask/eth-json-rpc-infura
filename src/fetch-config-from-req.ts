@@ -1,4 +1,4 @@
-import type { JsonRpcRequest } from 'json-rpc-engine';
+import type { JsonRpcParams, JsonRpcRequest } from '@metamask/utils';
 
 import type {
   ExtendedJsonRpcRequest,
@@ -41,7 +41,7 @@ export function fetchConfigFromReq({
   network: InfuraJsonRpcSupportedNetwork;
   projectId: string;
   extraHeaders?: RequestHeaders;
-  req: ExtendedJsonRpcRequest<unknown>;
+  req: ExtendedJsonRpcRequest<JsonRpcParams>;
   source?: string;
 }): FetchConfig {
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
@@ -72,8 +72,8 @@ export function fetchConfigFromReq({
  * @returns An object that describes a JSON-RPC request.
  */
 function normalizeReq(
-  req: ExtendedJsonRpcRequest<unknown>,
-): JsonRpcRequest<unknown> {
+  req: ExtendedJsonRpcRequest<JsonRpcParams>,
+): JsonRpcRequest {
   return {
     id: req.id,
     jsonrpc: req.jsonrpc,
