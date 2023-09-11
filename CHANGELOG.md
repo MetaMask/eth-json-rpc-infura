@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [8.1.2]
-### Uncategorized
-- Bump word-wrap from 1.2.3 to 1.2.4 ([#86](https://github.com/MetaMask/eth-json-rpc-infura/pull/86))
+### Changed
+- Bump `@metamask/utils` to `^5.0.1` ([#87](https://github.com/MetaMask/eth-json-rpc-infura/pull/87))
 
 ## [8.1.1]
 ### Changed
