@@ -6,12 +6,12 @@ on:
   pull_request:
 
 jobs:
-  build-lint-test:
+  build-lint-test-legacy:
     name: Build, Lint, and Test
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x, 16.x, 18.x, 20.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
