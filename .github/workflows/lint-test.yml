@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  build-lint-test-legacy:
+  build-lint-test:
     name: Build, Lint, and Test
     runs-on: ubuntu-20.04
     strategy:
@@ -33,6 +33,8 @@ jobs:
       - run: yarn allow-scripts
       - run: yarn build
       - run: yarn lint
+        # def remove before node.js v140
+        if: "${{ !startsWith(matrix.node-version, '14') }}"
       - run: yarn test
       - name: Validate RC changelog
         if: ${{ startsWith(github.head_ref, 'release/') }}
