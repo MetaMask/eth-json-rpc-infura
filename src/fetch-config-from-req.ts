@@ -18,7 +18,6 @@ type FetchConfig = {
 /**
  * Determines the arguments to feed into `fetch` in order to make a request to
  * Infura.
- *
  * @param options - The options.
  * @param options.network - A network that Infura supports; plugs into
  * `https://${network}.infura.io`.
@@ -69,7 +68,6 @@ export function fetchConfigFromReq({
 /**
  * Strips out extra keys from a request object that could be rejected by strict
  * nodes like parity.
- *
  * @param req - The original request object obtained via the middleware stack.
  * @returns An object that describes a JSON-RPC request.
  */

@@ -10,7 +10,6 @@ import { createInfuraMiddleware } from './create-infura-middleware';
  * [`eth-json-rpc-provider`](https://github.com/MetaMask/eth-json-rpc-provider)
  * which is preloaded with middleware specialized for interfacing with Infura
  * JSON-RPC endpoints.
- *
  * @param opts - Options to {@link createInfuraMiddleware}.
  * @returns The provider as returned by `providerFromEngine` (a part of
  * [`eth-json-rpc-provider`](https://github.com/MetaMask/eth-json-rpc-provider)).

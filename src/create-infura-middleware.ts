@@ -35,7 +35,6 @@ const RETRIABLE_ERRORS = [
 /**
  * Builds [`json-rpc-engine`](https://github.com/MetaMask/json-rpc-engine)-compatible middleware designed
  * for interfacing with Infura's JSON-RPC endpoints.
- *
  * @param opts - The options.
  * @param opts.network - A network that Infura supports; plugs into
  * `https://${network}.infura.io` (default: 'mainnet').
@@ -132,7 +131,6 @@ export function createInfuraMiddleware({
 /**
  * Makes a request to Infura, updating the given response object if the response
  * has a "successful" status code or throwing an error otherwise.
- *
  * @param network - A network that Infura supports; plugs into
  * `https://${network}.infura.io`.
  * @param projectId - The Infura project id.
@@ -196,7 +194,6 @@ async function performFetch(
 /**
  * Builds a JSON-RPC 2.0 internal error object describing a rate-limiting
  * error.
- *
  * @returns The error object.
  */
 function createRatelimitError(): EthereumRpcError<undefined> {
@@ -206,7 +203,6 @@ function createRatelimitError(): EthereumRpcError<undefined> {
 
 /**
  * Builds a JSON-RPC 2.0 internal error object describing a timeout error.
- *
  * @returns The error object.
  */
 function createTimeoutError(): EthereumRpcError<undefined> {
@@ -217,7 +213,6 @@ function createTimeoutError(): EthereumRpcError<undefined> {
 
 /**
  * Builds a JSON-RPC 2.0 internal error object.
- *
  * @param msg - The message.
  * @returns The error object.
  */
@@ -230,7 +225,6 @@ function createInternalError(msg: string): EthereumRpcError<undefined> {
  * intermittent. In these cases we can attempt the request again with the
  * assumption that the error is unlikely to occur again. Here we determine if we
  * have received such an error.
- *
  * @param err - The error object.
  * @returns Whether the request that produced the error can be retried.
  */
@@ -241,7 +235,6 @@ function isRetriableError(err: any): boolean {
 
 /**
  * A utility function that promisifies `setTimeout`.
- *
  * @param length - The number of milliseconds to wait.
  * @returns A promise that resolves after the given time has elapsed.
  */
