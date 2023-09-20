@@ -1,23 +1,25 @@
-import type { PendingJsonRpcResponse } from 'json-rpc-engine';
-import { createAsyncMiddleware } from 'json-rpc-engine';
 import type { EthereumRpcError } from 'eth-rpc-errors';
 import { ethErrors } from 'eth-rpc-errors';
+import { createAsyncMiddleware } from 'json-rpc-engine';
+import type { PendingJsonRpcResponse } from 'json-rpc-engine';
+// eslint-disable-next-line @typescript-eslint/no-shadow
 import fetch from 'node-fetch';
+
+import { fetchConfigFromReq } from './fetch-config-from-req';
+import { projectLogger, createModuleLogger } from './logging-utils';
 import type {
   ExtendedJsonRpcRequest,
   InfuraJsonRpcSupportedNetwork,
   RequestHeaders,
 } from './types';
-import { fetchConfigFromReq } from './fetch-config-from-req';
-import { projectLogger, createModuleLogger } from './logging-utils';
 
-export interface CreateInfuraMiddlewareOptions {
+export type CreateInfuraMiddlewareOptions = {
   network?: InfuraJsonRpcSupportedNetwork;
   maxAttempts?: number;
   source?: string;
   projectId: string;
   headers?: Record<string, string>;
-}
+};
 
 const log = createModuleLogger(projectLogger, 'create-infura-middleware');
 const RETRIABLE_ERRORS = [
@@ -33,7 +35,6 @@ const RETRIABLE_ERRORS = [
 /**
  * Builds [`json-rpc-engine`](https://github.com/MetaMask/json-rpc-engine)-compatible middleware designed
  * for interfacing with Infura's JSON-RPC endpoints.
- *
  * @param opts - The options.
  * @param opts.network - A network that Infura supports; plugs into
  * `https://${network}.infura.io` (default: 'mainnet').
@@ -58,6 +59,7 @@ export function createInfuraMiddleware({
   }
 
   if (!headers || typeof headers !== 'object') {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     throw new Error(`Invalid value for 'headers': "${headers}"`);
   }
 
@@ -104,7 +106,9 @@ export function createInfuraMiddleware({
             res,
             err,
           );
-          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${err.toString()}\n\n`;
+          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${
+            err.toString() as string
+          }\n\n`;
           const retriesExhaustedErr = new Error(errMsg);
           throw retriesExhaustedErr;
         }
@@ -127,7 +131,6 @@ export function createInfuraMiddleware({
 /**
  * Makes a request to Infura, updating the given response object if the response
  * has a "successful" status code or throwing an error otherwise.
- *
  * @param network - A network that Infura supports; plugs into
  * `https://${network}.infura.io`.
  * @param projectId - The Infura project id.
@@ -191,7 +194,6 @@ async function performFetch(
 /**
  * Builds a JSON-RPC 2.0 internal error object describing a rate-limiting
  * error.
- *
  * @returns The error object.
  */
 function createRatelimitError(): EthereumRpcError<undefined> {
@@ -201,7 +203,6 @@ function createRatelimitError(): EthereumRpcError<undefined> {
 
 /**
  * Builds a JSON-RPC 2.0 internal error object describing a timeout error.
- *
  * @returns The error object.
  */
 function createTimeoutError(): EthereumRpcError<undefined> {
@@ -212,7 +213,6 @@ function createTimeoutError(): EthereumRpcError<undefined> {
 
 /**
  * Builds a JSON-RPC 2.0 internal error object.
- *
  * @param msg - The message.
  * @returns The error object.
  */
@@ -225,7 +225,6 @@ function createInternalError(msg: string): EthereumRpcError<undefined> {
  * intermittent. In these cases we can attempt the request again with the
  * assumption that the error is unlikely to occur again. Here we determine if we
  * have received such an error.
- *
  * @param err - The error object.
  * @returns Whether the request that produced the error can be retried.
  */
@@ -236,11 +235,10 @@ function isRetriableError(err: any): boolean {
 
 /**
  * A utility function that promisifies `setTimeout`.
- *
  * @param length - The number of milliseconds to wait.
  * @returns A promise that resolves after the given time has elapsed.
  */
-function timeout(length: number): Promise<void> {
+async function timeout(length: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(resolve, length);
   });

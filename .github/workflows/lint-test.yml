@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x, 16.x, 18.x, 20.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -33,6 +33,8 @@ jobs:
       - run: yarn allow-scripts
       - run: yarn build
       - run: yarn lint
+        # def remove before node.js v140
+        if: "${{ !startsWith(matrix.node-version, '14') }}"
       - run: yarn test
       - name: Validate RC changelog
         if: ${{ startsWith(github.head_ref, 'release/') }}
