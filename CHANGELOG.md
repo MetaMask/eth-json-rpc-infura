@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.0.0]
+### Changed
+- **BREAKING:** Minimum Node.js version is now v16 ([#91](https://github.com/MetaMask/eth-json-rpc-infura/pull/91))
+- **BREAKING:** Update dependencies ([#95](https://github.com/MetaMask/eth-json-rpc-infura/pull/95))
+  - Bump `@metamask/eth-json-rpc-provider` from `^1.0.0` to `^2.1.0`
+  - Bump `@metamask/utils` from `^5.0.1` to `^8.1.0`
+  - Update from `eth-rpc-errors`@`^4.0.3` to `@metamask/rpc-errors`@`^6.0.0`
+  - Update from `json-rpc-engine`@`^6.1.0` to `@metamask/json-rpc-engine`@`^7.1.0`
+
 ## [8.1.2]
 ### Changed
 - Bump `@metamask/utils` to `^5.0.1` ([#87](https://github.com/MetaMask/eth-json-rpc-infura/pull/87))
@@ -80,7 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.0.0...HEAD
+[9.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...v9.0.0
 [8.1.2]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.1...v8.1.2
 [8.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.0...v8.1.1
 [8.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.0.0...v8.1.0
