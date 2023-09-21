@@ -1,7 +1,11 @@
-import type { EthereumRpcError } from 'eth-rpc-errors';
-import { ethErrors } from 'eth-rpc-errors';
-import { createAsyncMiddleware } from 'json-rpc-engine';
-import type { PendingJsonRpcResponse } from 'json-rpc-engine';
+import { createAsyncMiddleware } from '@metamask/json-rpc-engine';
+import type { JsonRpcError } from '@metamask/rpc-errors';
+import { rpcErrors } from '@metamask/rpc-errors';
+import type {
+  Json,
+  JsonRpcParams,
+  PendingJsonRpcResponse,
+} from '@metamask/utils';
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import fetch from 'node-fetch';
 
@@ -33,7 +37,7 @@ const RETRIABLE_ERRORS = [
 ];
 
 /**
- * Builds [`json-rpc-engine`](https://github.com/MetaMask/json-rpc-engine)-compatible middleware designed
+ * Builds [`@metamask/json-rpc-engine`](https://github.com/MetaMask/@metamask/json-rpc-engine)-compatible middleware designed
  * for interfacing with Infura's JSON-RPC endpoints.
  * @param opts - The options.
  * @param opts.network - A network that Infura supports; plugs into
@@ -44,7 +48,7 @@ const RETRIABLE_ERRORS = [
  * by Infura for analytics purposes.
  * @param opts.projectId - The Infura project id.
  * @param opts.headers - Extra headers that will be used to make the request.
- * @returns The `json-rpc-engine`-compatible middleware.
+ * @returns The `@metamask/json-rpc-engine`-compatible middleware.
  */
 export function createInfuraMiddleware({
   network = 'mainnet',
@@ -81,6 +85,7 @@ export function createInfuraMiddleware({
           headers,
           req,
         );
+
         await performFetch(network, projectId, headers, req, res, source);
         // request was successful
         break;
@@ -146,8 +151,8 @@ async function performFetch(
   network: InfuraJsonRpcSupportedNetwork,
   projectId: string,
   extraHeaders: RequestHeaders,
-  req: ExtendedJsonRpcRequest<unknown>,
-  res: PendingJsonRpcResponse<unknown>,
+  req: ExtendedJsonRpcRequest<JsonRpcParams>,
+  res: PendingJsonRpcResponse<Json>,
   source: string | undefined,
 ): Promise<void> {
   const { fetchUrl, fetchParams } = fetchConfigFromReq({
@@ -163,7 +168,7 @@ async function performFetch(
   if (!response.ok) {
     switch (response.status) {
       case 405:
-        throw ethErrors.rpc.methodNotFound();
+        throw rpcErrors.methodNotFound();
 
       case 429:
         throw createRatelimitError();
@@ -179,7 +184,9 @@ async function performFetch(
 
   // special case for now
   if (req.method === 'eth_getBlockByNumber' && rawData === 'Not Found') {
-    res.result = null;
+    // TODO Would this be more correct?
+    // delete res.result;
+    res.result = null as any as JsonRpcParams;
     return;
   }
 
@@ -196,7 +203,7 @@ async function performFetch(
  * error.
  * @returns The error object.
  */
-function createRatelimitError(): EthereumRpcError<undefined> {
+function createRatelimitError(): JsonRpcError<undefined> {
   const msg = `Request is being rate limited.`;
   return createInternalError(msg);
 }
@@ -205,7 +212,7 @@ function createRatelimitError(): EthereumRpcError<undefined> {
  * Builds a JSON-RPC 2.0 internal error object describing a timeout error.
  * @returns The error object.
  */
-function createTimeoutError(): EthereumRpcError<undefined> {
+function createTimeoutError(): JsonRpcError<undefined> {
   let msg = `Gateway timeout. The request took too long to process. `;
   msg += `This can happen when querying logs over too wide a block range.`;
   return createInternalError(msg);
@@ -216,8 +223,8 @@ function createTimeoutError(): EthereumRpcError<undefined> {
  * @param msg - The message.
  * @returns The error object.
  */
-function createInternalError(msg: string): EthereumRpcError<undefined> {
-  return ethErrors.rpc.internal(msg);
+function createInternalError(msg: string): JsonRpcError<undefined> {
+  return rpcErrors.internal(msg);
 }
 
 /**
