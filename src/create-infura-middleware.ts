@@ -1,7 +1,11 @@
 import { createAsyncMiddleware } from '@metamask/json-rpc-engine';
 import type { JsonRpcError } from '@metamask/rpc-errors';
 import { rpcErrors } from '@metamask/rpc-errors';
-import type { JsonRpcParams, PendingJsonRpcResponse } from '@metamask/utils';
+import type {
+  Json,
+  JsonRpcParams,
+  PendingJsonRpcResponse,
+} from '@metamask/utils';
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import fetch from 'node-fetch';
 
@@ -82,15 +86,7 @@ export function createInfuraMiddleware({
           req,
         );
 
-        await performFetch(
-          network,
-          projectId,
-          headers,
-          req,
-          // TODO: investigate type mismatch
-          res as any,
-          source,
-        );
+        await performFetch(network, projectId, headers, req, res, source);
         // request was successful
         break;
       } catch (err: any) {
@@ -156,7 +152,7 @@ async function performFetch(
   projectId: string,
   extraHeaders: RequestHeaders,
   req: ExtendedJsonRpcRequest<JsonRpcParams>,
-  res: PendingJsonRpcResponse<JsonRpcParams>,
+  res: PendingJsonRpcResponse<Json>,
   source: string | undefined,
 ): Promise<void> {
   const { fetchUrl, fetchParams } = fetchConfigFromReq({
