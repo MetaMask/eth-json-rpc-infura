@@ -42,7 +42,7 @@ export function fetchConfigFromReq({
   projectId: string;
   extraHeaders?: RequestHeaders;
   req: ExtendedJsonRpcRequest<JsonRpcParams>;
-  source?: string;
+  source?: string | undefined;
 }): FetchConfig {
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const requestOrigin = req.origin || 'internal';
@@ -74,10 +74,17 @@ export function fetchConfigFromReq({
 function normalizeReq(
   req: ExtendedJsonRpcRequest<JsonRpcParams>,
 ): JsonRpcRequest {
+  if ('params' in req) {
+    return {
+      id: req.id,
+      jsonrpc: req.jsonrpc,
+      method: req.method,
+      params: req.params,
+    };
+  }
   return {
     id: req.id,
     jsonrpc: req.jsonrpc,
     method: req.method,
-    params: req.params,
   };
 }
