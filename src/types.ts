@@ -24,8 +24,6 @@ export type InfuraJsonRpcSupportedNetwork =
   | 'optimism-goerli'
   | 'arbitrum-mainnet'
   | 'arbitrum-goerli'
-  | 'aurora-mainnet'
-  | 'aurora-testnet'
   | 'avalanche-mainnet'
   | 'avalanche-fuji'
   | 'celo-mainnet'
