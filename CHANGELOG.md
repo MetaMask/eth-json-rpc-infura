@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.1.0]
+### Uncategorized
+- feat: add Linea Sepolia to infura supported networks ([#101](https://github.com/MetaMask/eth-json-rpc-infura/pull/101))
+- Add Shared Libraries team in codeowners file ([#99](https://github.com/MetaMask/eth-json-rpc-infura/pull/99))
+- ci: run on ubuntu-latest(22.04) instead of ubuntu-20.04 ([#92](https://github.com/MetaMask/eth-json-rpc-infura/pull/92))
+- deps: node-fetch@^2.6.7->^2.7.0 ([#93](https://github.com/MetaMask/eth-json-rpc-infura/pull/93))
+- Bump @babel/traverse from 7.22.20 to 7.23.2 ([#97](https://github.com/MetaMask/eth-json-rpc-infura/pull/97))
+
 ## [9.0.0]
 ### Changed
 - **BREAKING:** Minimum Node.js version is now v16 ([#91](https://github.com/MetaMask/eth-json-rpc-infura/pull/91))
@@ -89,7 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.1.0...HEAD
+[9.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...v9.0.0
 [8.1.2]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.1...v8.1.2
 [8.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.0...v8.1.1
