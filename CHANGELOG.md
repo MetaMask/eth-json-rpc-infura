@@ -7,12 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [9.1.0]
-### Uncategorized
-- Add Linea Sepolia network to infura supported networks ([#101](https://github.com/MetaMask/eth-json-rpc-infura/pull/101))
-- Add Shared Libraries team in codeowners file ([#99](https://github.com/MetaMask/eth-json-rpc-infura/pull/99))
-- ci: run on ubuntu-latest(22.04) instead of ubuntu-20.04 ([#92](https://github.com/MetaMask/eth-json-rpc-infura/pull/92))
-- deps: node-fetch@^2.6.7->^2.7.0 ([#93](https://github.com/MetaMask/eth-json-rpc-infura/pull/93))
-- Bump @babel/traverse from 7.22.20 to 7.23.2 ([#97](https://github.com/MetaMask/eth-json-rpc-infura/pull/97))
+### Added
+- Add `linea-sepolia` to `InfuraJsonRpcSupportedNetwork` to allow requests to Linea Sepolia on Infura ([#101](https://github.com/MetaMask/eth-json-rpc-infura/pull/101))
+
+### Changed
+- Bump `node-fetch` from `^2.6.7` to `^2.7.0` ([#93](https://github.com/MetaMask/eth-json-rpc-infura/pull/93))
 
 ## [9.0.0]
 ### Changed
