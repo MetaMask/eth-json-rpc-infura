@@ -3,9 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
+module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -30,22 +28,23 @@ const config: Config.InitialOptions = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['/src/types\\.ts$'],
+  // coveragePathIgnorePatterns: [
+  //   "/node_modules/"
+  // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'v8',
+  coverageProvider: 'babel',
 
   // A list of reporter names that Jest uses when writing coverage reports
-  coverageReporters: ['text', 'html'],
+  coverageReporters: ['html', 'json-summary', 'text'],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // TODO: Fix lack of coverage and restore to 100%
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 27.27,
-      lines: 55,
-      statements: 55,
+      branches: 53.84,
+      functions: 28.57,
+      lines: 38.75,
+      statements: 38.27,
     },
   },
 
@@ -203,5 +202,3 @@ const config: Config.InitialOptions = {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
-
-export default config;

@@ -6,6 +6,7 @@ import type {
   JsonRpcParams,
   PendingJsonRpcResponse,
 } from '@metamask/utils';
+import { getErrorMessage } from '@metamask/utils';
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import fetch from 'node-fetch';
 
@@ -89,18 +90,18 @@ export function createInfuraMiddleware({
         await performFetch(network, projectId, headers, req, res, source);
         // request was successful
         break;
-      } catch (err: any) {
+      } catch (error) {
         // an error was caught while performing the request
         // if not retriable, resolve with the encountered error
-        if (!isRetriableError(err)) {
+        if (!isRetriableError(error)) {
           // abort with error
           log(
             'Non-retriable request error encountered. req = %o, res = %o, error = %o',
             req,
             res,
-            err,
+            error,
           );
-          throw err;
+          throw error;
         }
         // if no more attempts remaining, throw an error
         const remainingAttempts = maxAttempts - attempt;
@@ -109,11 +110,11 @@ export function createInfuraMiddleware({
             'Retriable request error encountered, but exceeded max attempts. req = %o, res = %o, error = %o',
             req,
             res,
-            err,
+            error,
           );
-          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${
-            err.toString() as string
-          }\n\n`;
+          const errMsg = `InfuraProvider - cannot complete request. All retries exhausted.\nOriginal Error:\n${getErrorMessage(
+            error,
+          )}\n\n`;
           const retriesExhaustedErr = new Error(errMsg);
           throw retriesExhaustedErr;
         }
@@ -123,7 +124,7 @@ export function createInfuraMiddleware({
           'Retriable request error encountered. req = %o, res = %o, error = %o',
           req,
           res,
-          err,
+          error,
         );
         log('Waiting 1 second to try again...');
         await timeout(1000);
@@ -204,8 +205,8 @@ async function performFetch(
  * @returns The error object.
  */
 function createRatelimitError(): JsonRpcError<undefined> {
-  const msg = `Request is being rate limited.`;
-  return createInternalError(msg);
+  const message = `Request is being rate limited.`;
+  return createInternalError(message);
 }
 
 /**
@@ -213,18 +214,18 @@ function createRatelimitError(): JsonRpcError<undefined> {
  * @returns The error object.
  */
 function createTimeoutError(): JsonRpcError<undefined> {
-  let msg = `Gateway timeout. The request took too long to process. `;
-  msg += `This can happen when querying logs over too wide a block range.`;
-  return createInternalError(msg);
+  let message = `Gateway timeout. The request took too long to process. `;
+  message += `This can happen when querying logs over too wide a block range.`;
+  return createInternalError(message);
 }
 
 /**
  * Builds a JSON-RPC 2.0 internal error object.
- * @param msg - The message.
+ * @param message - The message.
  * @returns The error object.
  */
-function createInternalError(msg: string): JsonRpcError<undefined> {
-  return rpcErrors.internal(msg);
+function createInternalError(message: string): JsonRpcError<undefined> {
+  return rpcErrors.internal(message);
 }
 
 /**
@@ -232,12 +233,13 @@ function createInternalError(msg: string): JsonRpcError<undefined> {
  * intermittent. In these cases we can attempt the request again with the
  * assumption that the error is unlikely to occur again. Here we determine if we
  * have received such an error.
- * @param err - The error object.
+ * @param error - The error object.
  * @returns Whether the request that produced the error can be retried.
  */
-function isRetriableError(err: any): boolean {
-  const errMessage = err.toString();
-  return RETRIABLE_ERRORS.some((phrase) => errMessage.includes(phrase));
+function isRetriableError(error: unknown): boolean {
+  return RETRIABLE_ERRORS.some((phrase) =>
+    getErrorMessage(error).includes(phrase),
+  );
 }
 
 /**
