@@ -6,8 +6,6 @@ import type {
   JsonRpcParams,
   PendingJsonRpcResponse,
 } from '@metamask/utils';
-// eslint-disable-next-line @typescript-eslint/no-shadow
-import fetch from 'node-fetch';
 
 import { fetchConfigFromReq } from './fetch-config-from-req';
 import { projectLogger, createModuleLogger } from './logging-utils';
