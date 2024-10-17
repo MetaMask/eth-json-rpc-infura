@@ -7,14 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [10.0.0]
-### Uncategorized
-- ci: fix failing create-release-pr job ([#113](https://github.com/MetaMask/eth-json-rpc-infura/pull/113))
-- deps: @metamask/json-rpc-engine@^7.1.1->^10.0.0 ([#112](https://github.com/MetaMask/eth-json-rpc-infura/pull/112))
-- deps: @metamask/rpc-errors@^6.0.0->^7.0.0  ([#111](https://github.com/MetaMask/eth-json-rpc-infura/pull/111))
-- fix(deps): drop node-fetch ([#110](https://github.com/MetaMask/eth-json-rpc-infura/pull/110))
-- drop support for Node.js versions 16, 21 ([#109](https://github.com/MetaMask/eth-json-rpc-infura/pull/109))
-- Update CODEOWNERS ([#106](https://github.com/MetaMask/eth-json-rpc-infura/pull/106))
-- Enabling MetaMask security code scanner ([#102](https://github.com/MetaMask/eth-json-rpc-infura/pull/102))
+### Changed
+- **BREAKING**: `@metamask/json-rpc-engine` from `^7.1.1` to `^10.0.0` ([#112](https://github.com/MetaMask/eth-json-rpc-infura/pull/112))
+- **BREAKING**: Update `@metamask/rpc-errors` from `^6.0.0` to `^7.0.0` ([#111](https://github.com/MetaMask/eth-json-rpc-infura/pull/111))
+- **BREAKING**: Drop support for Node.js versions 16, 21 ([#109](https://github.com/MetaMask/eth-json-rpc-infura/pull/109))
+
+### Removed
+- Drop `node-fetch` dependency ([#110](https://github.com/MetaMask/eth-json-rpc-infura/pull/110))
 
 ## [9.1.0]
 ### Added
