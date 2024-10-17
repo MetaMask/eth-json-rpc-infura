@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.0.0]
+### Uncategorized
+- ci: fix failing create-release-pr job ([#113](https://github.com/MetaMask/eth-json-rpc-infura/pull/113))
+- deps: @metamask/json-rpc-engine@^7.1.1->^10.0.0 ([#112](https://github.com/MetaMask/eth-json-rpc-infura/pull/112))
+- deps: @metamask/rpc-errors@^6.0.0->^7.0.0  ([#111](https://github.com/MetaMask/eth-json-rpc-infura/pull/111))
+- fix(deps): drop node-fetch ([#110](https://github.com/MetaMask/eth-json-rpc-infura/pull/110))
+- drop support for Node.js versions 16, 21 ([#109](https://github.com/MetaMask/eth-json-rpc-infura/pull/109))
+- Update CODEOWNERS ([#106](https://github.com/MetaMask/eth-json-rpc-infura/pull/106))
+- Enabling MetaMask security code scanner ([#102](https://github.com/MetaMask/eth-json-rpc-infura/pull/102))
+
 ## [9.1.0]
 ### Added
 - Add `linea-sepolia` to `InfuraJsonRpcSupportedNetwork` to allow requests to Linea Sepolia on Infura ([#101](https://github.com/MetaMask/eth-json-rpc-infura/pull/101))
@@ -96,7 +106,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.1.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...HEAD
+[10.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.1.0...v10.0.0
 [9.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...v9.0.0
 [8.1.2]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.1...v8.1.2
