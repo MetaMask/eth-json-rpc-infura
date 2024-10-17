@@ -711,16 +711,27 @@
   resolved "https://registry.yarnpkg.com/@metamask/eslint-config/-/eslint-config-12.2.0.tgz#6cefc8331e4a34d26ae951882437371ecfe4e3c4"
   integrity sha512-BurYsht8MKdhvW2itUPPF8NkAhYtDdsCGHTSY7EzVvlmGP4jc9XrRZyfNwlt0zhB6MCMjHB1uNWwchtX7vBFjw==
 
-"@metamask/eth-json-rpc-provider@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@metamask/eth-json-rpc-provider/-/eth-json-rpc-provider-2.1.0.tgz#80244c10084c83092c4dd484b9027f83c5c01bfa"
-  integrity sha512-UqKpu5o8llTQRLzH5e/CrX+WVt7ysHqe6nVvlykQsU345X61qw5DpK0t1LbaWo2q4rjUO1puw5SMbHjKCSZ2EQ==
+"@metamask/eth-json-rpc-provider@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@metamask/eth-json-rpc-provider/-/eth-json-rpc-provider-4.1.5.tgz#8461fb3af8a48e3a32b45602ce96e81e1c49b5db"
+  integrity sha512-ARXEgPnVhrz4uDiG+atgkfZD6t8oZbD4pzWZMV4kJIOgZeUngZvq0m5gVeLKWxkc5ofejoSUBRRAKUQBRaaJKA==
   dependencies:
-    "@metamask/json-rpc-engine" "^7.1.0"
+    "@metamask/json-rpc-engine" "^10.0.0"
+    "@metamask/rpc-errors" "^7.0.0"
     "@metamask/safe-event-emitter" "^3.0.0"
-    "@metamask/utils" "^8.1.0"
+    "@metamask/utils" "^9.1.0"
+    uuid "^8.3.2"
 
-"@metamask/json-rpc-engine@^7.1.0", "@metamask/json-rpc-engine@^7.1.1":
+"@metamask/json-rpc-engine@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@metamask/json-rpc-engine/-/json-rpc-engine-10.0.0.tgz#d2beb23ca43596bf2e4a72c54c1d4c24fce1c8a6"
+  integrity sha512-10GzJR3G+MM1uS9tLEOw67fc8/kstCSwVoSqaL3fxYaWfUrM6RJWAq1jnMdVrLgyItDguC0d8fsW1FTmF856rQ==
+  dependencies:
+    "@metamask/rpc-errors" "^7.0.0"
+    "@metamask/safe-event-emitter" "^3.0.0"
+    "@metamask/utils" "^9.1.0"
+
+"@metamask/json-rpc-engine@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@metamask/json-rpc-engine/-/json-rpc-engine-7.1.1.tgz#90d4c1e1fe3bcfc983563f6e07715319b8857190"
   integrity sha512-wPB8Or74OqMwcxa87JPOEjXwtgpyHPEXiLKblKRAtCjTJNQFp1Co//1CgFm5xj4Z5JbBGfGFiQNnj09Et40sig==
@@ -767,10 +778,10 @@
     semver "^7.5.4"
     superstruct "^1.0.3"
 
-"@metamask/utils@^9.0.0":
-  version "9.2.1"
-  resolved "https://registry.yarnpkg.com/@metamask/utils/-/utils-9.2.1.tgz#d9f84706ff97e0c8d1bde5778549365b14269e81"
-  integrity sha512-/u663aUaB6+Xe75i3Mt/1cCljm41HDYIsna5oBrwGvgkY2zH7/9k9Zjd706cxoAbxN7QgLSVAReUiGnuxCuXrQ==
+"@metamask/utils@^9.0.0", "@metamask/utils@^9.1.0":
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/@metamask/utils/-/utils-9.3.0.tgz#4726bd7f5d6a43ea8425b6d663ab9207f617c2d1"
+  integrity sha512-w8CVbdkDrVXFJbfBSlDfafDR6BAkpDmv1bC1UJVCoVny5tW2RKAdn9i68Xf7asYT4TnUhl/hN4zfUiKQq9II4g==
   dependencies:
     "@ethereumjs/tx" "^4.2.0"
     "@metamask/superstruct" "^3.1.0"
@@ -4513,6 +4524,11 @@ util-deprecate@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 uuid@^9.0.1:
   version "9.0.1"
