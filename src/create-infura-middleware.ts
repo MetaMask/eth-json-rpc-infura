@@ -1,26 +1,37 @@
+import type { JsonRpcMiddleware } from '@metamask/json-rpc-engine';
 import { createAsyncMiddleware } from '@metamask/json-rpc-engine';
 import type { JsonRpcError } from '@metamask/rpc-errors';
 import { rpcErrors } from '@metamask/rpc-errors';
-import type {
-  Json,
-  JsonRpcParams,
-  PendingJsonRpcResponse,
+import {
+  isJsonRpcFailure,
+  type Json,
+  type JsonRpcParams,
+  type PendingJsonRpcResponse,
 } from '@metamask/utils';
 
 import { fetchConfigFromReq } from './fetch-config-from-req';
 import { projectLogger, createModuleLogger } from './logging-utils';
 import type {
+  AbstractRpcService,
   ExtendedJsonRpcRequest,
   InfuraJsonRpcSupportedNetwork,
   RequestHeaders,
 } from './types';
+
+/**
+ * A simplified version of the `HeadersInit` type from the Fetch API.
+ *
+ * We purposefully do not use that type because we don't want to accidentally
+ * rely on browser-only APIs in this package.
+ */
+type Headers = Record<string, string>;
 
 export type CreateInfuraMiddlewareOptions = {
   network?: InfuraJsonRpcSupportedNetwork;
   maxAttempts?: number;
   source?: string;
   projectId: string;
-  headers?: Record<string, string>;
+  headers?: Headers;
 };
 
 const log = createModuleLogger(projectLogger, 'create-infura-middleware');
@@ -33,6 +44,119 @@ const RETRIABLE_ERRORS = [
   // or truncated json responses
   'SyntaxError',
 ];
+
+/**
+ * Creates middleware for sending a JSON-RPC request through the given RPC
+ * service.
+ * @param args - The arguments to this function.
+ * @param args.rpcService - The RPC service to use.
+ * @param args.options - Options.
+ * @param args.options.source - A descriptor for the entity making the request;
+ * tracked by Infura for analytics purposes.
+ * @param args.options.headers - Extra headers to include in the request.
+ * @returns The fetch middleware.
+ */
+export function createInfuraMiddleware(args: {
+  rpcService: AbstractRpcService;
+  options?: {
+    source?: string;
+    headers?: Headers;
+  };
+}): JsonRpcMiddleware<JsonRpcParams, Json>;
+
+/**
+ * Builds [`@metamask/json-rpc-engine`](https://github.com/MetaMask/@metamask/json-rpc-engine)-compatible middleware designed
+ * for interfacing with Infura's JSON-RPC endpoints.
+ * @deprecated This overload is deprecated — please pass an `RpcService`
+ * instance from `@metamask/network-controller` instead.
+ * @param args - The arguments to this function.
+ * @param args.network - A network that Infura supports; plugs into
+ * `https://${network}.infura.io` (default: 'mainnet').
+ * @param args.maxAttempts - The number of times a request to Infura should be
+ * retried in the case of failure (default: 5).
+ * @param args.source - A descriptor for the entity making the request; tracked
+ * by Infura for analytics purposes.
+ * @param args.projectId - The Infura project id.
+ * @param args.headers - Extra headers that will be used to make the request.
+ * @returns The `@metamask/json-rpc-engine`-compatible middleware.
+ */
+export function createInfuraMiddleware(
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
+  args: CreateInfuraMiddlewareOptions,
+): JsonRpcMiddleware<JsonRpcParams, Json>;
+
+// The overloads are documented above.
+// eslint-disable-next-line jsdoc/require-jsdoc
+export function createInfuraMiddleware(
+  args:
+    | {
+        rpcService: AbstractRpcService;
+        options?: {
+          source?: string;
+          headers?: Headers;
+        };
+      }
+    | CreateInfuraMiddlewareOptions,
+): JsonRpcMiddleware<JsonRpcParams, Json> {
+  if ('rpcService' in args) {
+    return createInfuraMiddlewareWithRpcService(args);
+  }
+  return createInfuraMiddlewareWithoutRpcService(args);
+}
+
+/**
+ * Creates middleware for sending a JSON-RPC request through the given RPC
+ * service.
+ * @param args - The arguments to this function.
+ * @param args.rpcService - The RPC service to use.
+ * @param args.options - Options.
+ * @param args.options.source - A descriptor for the entity making the request;
+ * tracked by Infura for analytics purposes.
+ * @param args.options.headers - Extra headers to include in the request.
+ * @returns The fetch middleware.
+ */
+function createInfuraMiddlewareWithRpcService({
+  rpcService,
+  options = {},
+}: {
+  rpcService: AbstractRpcService;
+  options?: {
+    source?: string;
+    headers?: Headers;
+  };
+}): JsonRpcMiddleware<JsonRpcParams, Json> {
+  const { source, headers: extraHeaders = {} } = options;
+
+  return createAsyncMiddleware(
+    async (req: ExtendedJsonRpcRequest<JsonRpcParams>, res) => {
+      const headers: Headers =
+        source !== undefined && req.origin !== undefined
+          ? { ...extraHeaders, 'Infura-Source': `${source}/${req.origin}` }
+          : extraHeaders;
+
+      const jsonRpcResponse = await rpcService.request(
+        {
+          id: req.id,
+          jsonrpc: req.jsonrpc,
+          method: req.method,
+          params: req.params,
+        },
+        {
+          headers,
+        },
+      );
+
+      // Discard the `id` and `jsonrpc` fields in the response body
+      // (the JSON-RPC engine will fill those in)
+
+      if (isJsonRpcFailure(jsonRpcResponse)) {
+        res.error = jsonRpcResponse.error;
+      } else {
+        res.result = jsonRpcResponse.result;
+      }
+    },
+  );
+}
 
 /**
  * Builds [`@metamask/json-rpc-engine`](https://github.com/MetaMask/@metamask/json-rpc-engine)-compatible middleware designed
@@ -48,13 +172,13 @@ const RETRIABLE_ERRORS = [
  * @param opts.headers - Extra headers that will be used to make the request.
  * @returns The `@metamask/json-rpc-engine`-compatible middleware.
  */
-export function createInfuraMiddleware({
+export function createInfuraMiddlewareWithoutRpcService({
   network = 'mainnet',
   maxAttempts = 5,
   source,
   projectId,
   headers = {},
-}: CreateInfuraMiddlewareOptions) {
+}: CreateInfuraMiddlewareOptions): JsonRpcMiddleware<JsonRpcParams, Json> {
   // validate options
   if (!projectId || typeof projectId !== 'string') {
     throw new Error(`Invalid value for 'projectId': "${projectId}"`);
