@@ -36,4 +36,5 @@ export type InfuraJsonRpcSupportedNetwork =
   | 'starknet-goerli'
   | 'linea-goerli'
   | 'linea-sepolia'
-  | 'linea-mainnet';
+  | 'linea-mainnet'
+  | 'sei-mainnet';
