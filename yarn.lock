@@ -711,48 +711,48 @@
   resolved "https://registry.yarnpkg.com/@metamask/eslint-config/-/eslint-config-12.2.0.tgz#6cefc8331e4a34d26ae951882437371ecfe4e3c4"
   integrity sha512-BurYsht8MKdhvW2itUPPF8NkAhYtDdsCGHTSY7EzVvlmGP4jc9XrRZyfNwlt0zhB6MCMjHB1uNWwchtX7vBFjw==
 
-"@metamask/eth-json-rpc-provider@^4.1.5":
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/@metamask/eth-json-rpc-provider/-/eth-json-rpc-provider-4.1.5.tgz#8461fb3af8a48e3a32b45602ce96e81e1c49b5db"
-  integrity sha512-ARXEgPnVhrz4uDiG+atgkfZD6t8oZbD4pzWZMV4kJIOgZeUngZvq0m5gVeLKWxkc5ofejoSUBRRAKUQBRaaJKA==
+"@metamask/eth-json-rpc-provider@^4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@metamask/eth-json-rpc-provider/-/eth-json-rpc-provider-4.1.7.tgz#f15f5b429eafd4fa3b7ab7b9d7317cb6ea8cde25"
+  integrity sha512-h69LbbnB8ZcOOND2XHd2FVz1ny7XWq+UMJEDPGKtLsjVd4FL57reuA9JxC711audWGffBxfx9Sfdi0l7SfRJrg==
   dependencies:
-    "@metamask/json-rpc-engine" "^10.0.0"
-    "@metamask/rpc-errors" "^7.0.0"
+    "@metamask/json-rpc-engine" "^10.0.2"
+    "@metamask/rpc-errors" "^7.0.2"
     "@metamask/safe-event-emitter" "^3.0.0"
-    "@metamask/utils" "^9.1.0"
+    "@metamask/utils" "^11.0.1"
     uuid "^8.3.2"
 
-"@metamask/json-rpc-engine@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@metamask/json-rpc-engine/-/json-rpc-engine-10.0.0.tgz#d2beb23ca43596bf2e4a72c54c1d4c24fce1c8a6"
-  integrity sha512-10GzJR3G+MM1uS9tLEOw67fc8/kstCSwVoSqaL3fxYaWfUrM6RJWAq1jnMdVrLgyItDguC0d8fsW1FTmF856rQ==
+"@metamask/json-rpc-engine@^10.0.2":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@metamask/json-rpc-engine/-/json-rpc-engine-10.0.2.tgz#9173f90ebb16054fe20d5d73a910729a014750ce"
+  integrity sha512-UZKKvgEGVZyBOTKe0NrERv6J4QtR1X4a3Ppa10FZ2tY+nNvwQg3gFpWPRsYNQdPDFxtIsUdrMrqKvbkYSuHZkw==
   dependencies:
-    "@metamask/rpc-errors" "^7.0.0"
+    "@metamask/rpc-errors" "^7.0.2"
     "@metamask/safe-event-emitter" "^3.0.0"
-    "@metamask/utils" "^9.1.0"
+    "@metamask/utils" "^11.0.1"
 
-"@metamask/rpc-errors@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@metamask/rpc-errors/-/rpc-errors-7.0.0.tgz#7bdd638a353708da72f591142053631b00431b74"
-  integrity sha512-KDkqwL+MgGMOex6KHntbMQsHGlW29QeH5vpaG/bzovsf1r8xFwxk5f5vnP7/AGpzR9EojNhP8aKeBSJ44rvDMw==
+"@metamask/rpc-errors@^7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@metamask/rpc-errors/-/rpc-errors-7.0.2.tgz#d07b2ebfcf111556dfe93dc78699742ebe755359"
+  integrity sha512-YYYHsVYd46XwY2QZzpGeU4PSdRhHdxnzkB8piWGvJW2xbikZ3R+epAYEL4q/K8bh9JPTucsUdwRFnACor1aOYw==
   dependencies:
-    "@metamask/utils" "^9.0.0"
+    "@metamask/utils" "^11.0.1"
     fast-safe-stringify "^2.0.6"
 
 "@metamask/safe-event-emitter@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-3.0.0.tgz#8c2b9073fe0722d48693143b0dc8448840daa3bd"
-  integrity sha512-j6Z47VOmVyGMlnKXZmL0fyvWfEYtKWCA9yGZkU3FCsGZUT5lHGmvaV9JA5F2Y+010y7+ROtR3WMXIkvl/nVzqQ==
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-3.1.2.tgz#bfac8c7a1a149b5bbfe98f59fbfea512dfa3bad4"
+  integrity sha512-5yb2gMI1BDm0JybZezeoX/3XhPDOtTbcFvpTXM9kxsoZjPZFh4XciqRbpD6N86HYZqWDhEaKUDuOyR0sQHEjMA==
 
 "@metamask/superstruct@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@metamask/superstruct/-/superstruct-3.1.0.tgz#148f786a674fba3ac885c1093ab718515bf7f648"
   integrity sha512-N08M56HdOgBfRKkrgCMZvQppkZGcArEop3kixNEtVbJKm6P9Cfg0YkI6X0s1g78sNrj2fWUwvJADdZuzJgFttA==
 
-"@metamask/utils@^9.0.0", "@metamask/utils@^9.1.0":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@metamask/utils/-/utils-9.3.0.tgz#4726bd7f5d6a43ea8425b6d663ab9207f617c2d1"
-  integrity sha512-w8CVbdkDrVXFJbfBSlDfafDR6BAkpDmv1bC1UJVCoVny5tW2RKAdn9i68Xf7asYT4TnUhl/hN4zfUiKQq9II4g==
+"@metamask/utils@^11.0.1":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@metamask/utils/-/utils-11.1.0.tgz#dff87ea40f25db24e7242234501794b30ba59a09"
+  integrity sha512-lhR3sEZisT6hVBrnS3Ftgg9FRUFca0/5fcxDA+5paqLo4YYE6euV7622l0Qi3yMwy4mlgrrDTBiPSTXtCUKrdg==
   dependencies:
     "@ethereumjs/tx" "^4.2.0"
     "@metamask/superstruct" "^3.1.0"
