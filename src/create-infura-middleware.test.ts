@@ -1,5 +1,6 @@
 import { JsonRpcEngine } from '@metamask/json-rpc-engine';
 import type { Json, JsonRpcParams, JsonRpcRequest } from '@metamask/utils';
+import nock from 'nock';
 
 import { createInfuraMiddleware } from '.';
 import type { AbstractRpcService } from './types';
@@ -263,6 +264,246 @@ describe('createInfuraMiddleware (given an RPC endpoint)', () => {
     expect(() =>
       createInfuraMiddleware({ projectId: 'foo', headers: 42 } as any),
     ).toThrow(/Invalid value for 'headers'/u);
+  });
+
+  it('makes a request to the network with the correct headers and body when no `source` option given', async () => {
+    const infuraNetwork = 'sepolia';
+    const infuraProjectId = 'some-project-id';
+    const nockScope = nock(`https://${infuraNetwork}.infura.io`)
+      .post(`/v3/${infuraProjectId}`, {
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      })
+      .reply(200, {
+        id: 1,
+        jsonrpc: '2.0',
+        result: '0x1',
+      });
+    const middleware = createInfuraMiddleware({
+      network: infuraNetwork,
+      projectId: infuraProjectId,
+    });
+
+    const engine = new JsonRpcEngine();
+    engine.push(middleware);
+    await engine.handle({
+      id: 1,
+      jsonrpc: '2.0',
+      method: 'eth_chainId',
+      params: [],
+    });
+
+    expect(nockScope.isDone()).toBe(true);
+  });
+
+  it('includes the `origin` from the given request in the request headers under the given `source`', async () => {
+    const infuraNetwork = 'sepolia';
+    const infuraProjectId = 'some-project-id';
+    const nockScope = nock(`https://${infuraNetwork}.infura.io`)
+      .matchHeader('Infura-Source', 'metamask/somedapp.com')
+      .post(`/v3/${infuraProjectId}`, {
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      })
+      .reply(200, {
+        id: 1,
+        jsonrpc: '2.0',
+        result: '0x1',
+      });
+    const middleware = createInfuraMiddleware({
+      network: infuraNetwork,
+      projectId: infuraProjectId,
+      source: 'metamask',
+    });
+
+    const engine = new JsonRpcEngine();
+    engine.push(middleware);
+    // @ts-expect-error This isn't a "proper" request as it includes `origin`,
+    // but that's intentional.
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    await engine.handle({
+      id: 1,
+      jsonrpc: '2.0',
+      method: 'eth_chainId',
+      params: [],
+      origin: 'somedapp.com',
+    });
+
+    expect(nockScope.isDone()).toBe(true);
+  });
+
+  it('includes provided extra request headers in the request, not allowing Infura-Source to be overwritten', async () => {
+    const infuraNetwork = 'sepolia';
+    const infuraProjectId = 'some-project-id';
+    const nockScope = nock(`https://${infuraNetwork}.infura.io`)
+      .matchHeader('X-Foo', 'Bar')
+      .matchHeader('X-Baz', 'Qux')
+      .matchHeader('Infura-Source', 'metamask/somedapp.com')
+      .post(`/v3/${infuraProjectId}`, {
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      })
+      .reply(200, {
+        id: 1,
+        jsonrpc: '2.0',
+        result: '0x1',
+      });
+    const middleware = createInfuraMiddleware({
+      network: infuraNetwork,
+      projectId: infuraProjectId,
+      source: 'metamask',
+      headers: {
+        'X-Foo': 'Bar',
+        'X-Baz': 'Qux',
+        'Infura-Source': 'whatever',
+      },
+    });
+
+    const engine = new JsonRpcEngine();
+    engine.push(middleware);
+    // @ts-expect-error This isn't a "proper" request as it includes `origin`,
+    // but that's intentional.
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    await engine.handle({
+      id: 1,
+      jsonrpc: '2.0',
+      method: 'eth_chainId',
+      params: [],
+      origin: 'somedapp.com',
+    });
+
+    expect(nockScope.isDone()).toBe(true);
+  });
+
+  describe('if the request to the service returns a successful JSON-RPC response', () => {
+    it('includes the `result` field from the service in the middleware response', async () => {
+      const infuraNetwork = 'sepolia';
+      const infuraProjectId = 'some-project-id';
+      nock(`https://${infuraNetwork}.infura.io`)
+        .post(`/v3/${infuraProjectId}`, {
+          id: 1,
+          jsonrpc: '2.0',
+          method: 'eth_chainId',
+          params: [],
+        })
+        .reply(200, {
+          id: 1,
+          jsonrpc: '2.0',
+          result: 'the result',
+        });
+      const middleware = createInfuraMiddleware({
+        network: infuraNetwork,
+        projectId: infuraProjectId,
+      });
+
+      const engine = new JsonRpcEngine();
+      engine.push(middleware);
+      const result = await engine.handle({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      });
+
+      expect(result).toStrictEqual({
+        id: 1,
+        jsonrpc: '2.0',
+        result: 'the result',
+        error: undefined,
+      });
+    });
+  });
+
+  describe('if the request to the service returns a unsuccessful JSON-RPC response', () => {
+    it('includes the `error` field from the service in the middleware response', async () => {
+      const infuraNetwork = 'sepolia';
+      const infuraProjectId = 'some-project-id';
+      nock(`https://${infuraNetwork}.infura.io`)
+        .post(`/v3/${infuraProjectId}`, {
+          id: 1,
+          jsonrpc: '2.0',
+          method: 'eth_chainId',
+          params: [],
+        })
+        .reply(200, {
+          id: 1,
+          jsonrpc: '2.0',
+          error: {
+            code: -1000,
+            message: 'oops',
+          },
+        });
+      const middleware = createInfuraMiddleware({
+        network: infuraNetwork,
+        projectId: infuraProjectId,
+      });
+
+      const engine = new JsonRpcEngine();
+      engine.push(middleware);
+      const result = await engine.handle({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      });
+
+      expect(result).toStrictEqual({
+        id: 1,
+        jsonrpc: '2.0',
+        error: {
+          code: -1000,
+          message: 'oops',
+        },
+      });
+    });
+  });
+
+  describe('if the request to the service throws', () => {
+    it('includes the message and stack of the error in a new JSON-RPC error', async () => {
+      const infuraNetwork = 'sepolia';
+      const infuraProjectId = 'some-project-id';
+      nock(`https://${infuraNetwork}.infura.io`)
+        .post(`/v3/${infuraProjectId}`, {
+          id: 1,
+          jsonrpc: '2.0',
+          method: 'eth_chainId',
+          params: [],
+        })
+        .replyWithError(new Error('oops'));
+      const middleware = createInfuraMiddleware({
+        network: infuraNetwork,
+        projectId: infuraProjectId,
+      });
+
+      const engine = new JsonRpcEngine();
+      engine.push(middleware);
+      const result = await engine.handle({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      });
+
+      expect(result).toMatchObject({
+        id: 1,
+        jsonrpc: '2.0',
+        error: {
+          code: -32603,
+          data: {
+            cause: {
+              message: 'oops',
+              stack: expect.stringContaining('Error: oops'),
+            },
+          },
+        },
+      });
+    });
   });
 });
 
