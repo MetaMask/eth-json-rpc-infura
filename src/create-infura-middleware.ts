@@ -153,6 +153,7 @@ function createInfuraMiddlewareWithRpcService({
         res.error = jsonRpcResponse.error;
       } else {
         res.result = jsonRpcResponse.result;
+        res.error = undefined;
       }
     },
   );

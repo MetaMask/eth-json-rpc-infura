@@ -142,6 +142,7 @@ describe('createInfuraMiddleware (given an RPC service)', () => {
         id: 1,
         jsonrpc: '2.0',
         result: 'the result',
+        error: undefined,
       });
     });
   });
