@@ -5,10 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [10.1.0]
 ### Added
 - Add a way to pass an RPC service to `createInfuraMiddleware` ([#116](https://github.com/MetaMask/eth-json-rpc-infura/pull/116))
   - The new, recommended function signature is now `createInfuraMiddleware({ rpcService: AbstractRpcService; options?: { source?: string; headers?: HeadersInit } })`, where `AbstractRpcService` matches the same interface from `@metamask/network-controller`
   - This allows us to support automatic failover to a secondary node when the network goes down
+
+### Changed
+- Bump dependencies to remove pre-11.x versions of `@metamask/utils` from dependency tree ([#118](https://github.com/MetaMask/eth-json-rpc-infura/pull/118))
+  - Bump `@metamask/eth-json-rpc-provider` from `^4.1.5` to `^4.1.7`
+  - Bump `@metamask/json-rpc-engine` from `^10.0.0` to `^10.0.2`
+  - Bump `@metamask/rpc-errors` from `^7.0.0` to `^7.0.2`
+  - Bump `@metamask/utils` from `^9.1.0` to `^11.1.0`
 
 ### Deprecated
 - Deprecate passing an RPC endpoint to `createInfuraMiddleware` ([#116](https://github.com/MetaMask/eth-json-rpc-infura/pull/116))
@@ -114,7 +123,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.0...HEAD
+[10.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.1.0...v10.0.0
 [9.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...v9.0.0
