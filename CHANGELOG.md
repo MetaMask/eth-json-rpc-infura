@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add a way to pass an RPC service to `createInfuraMiddleware` ([#116](https://github.com/MetaMask/eth-json-rpc-infura/pull/116))
+  - The new, recommended function signature is now `createInfuraMiddleware({ rpcService: AbstractRpcService; options?: { source?: string; headers?: HeadersInit } })`, where `AbstractRpcService` matches the same interface from `@metamask/network-controller`
+  - This allows us to support automatic failover to a secondary node when the network goes down
+
+### Deprecated
+- Deprecate passing an RPC endpoint to `createInfuraMiddleware` ([#116](https://github.com/MetaMask/eth-json-rpc-infura/pull/116))
+  - See recommended function signature above
+  - The existing signature `createInfuraMiddleware({ network?: InfuraJsonRpcSupportedNetwork; maxAttempts?: number; source?: string; projectId: string; headers?: Record<string, string>; })` will be removed in a future major version
 
 ## [10.0.0]
 ### Changed
