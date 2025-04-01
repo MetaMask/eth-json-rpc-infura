@@ -3,7 +3,6 @@ import { createAsyncMiddleware } from '@metamask/json-rpc-engine';
 import type { JsonRpcError } from '@metamask/rpc-errors';
 import { rpcErrors } from '@metamask/rpc-errors';
 import {
-  isJsonRpcFailure,
   type Json,
   type JsonRpcParams,
   type PendingJsonRpcResponse,
@@ -149,7 +148,7 @@ function createInfuraMiddlewareWithRpcService({
       // Discard the `id` and `jsonrpc` fields in the response body
       // (the JSON-RPC engine will fill those in)
 
-      if (isJsonRpcFailure(jsonRpcResponse)) {
+      if ('error' in jsonRpcResponse) {
         res.error = jsonRpcResponse.error;
       } else {
         res.result = jsonRpcResponse.result;
