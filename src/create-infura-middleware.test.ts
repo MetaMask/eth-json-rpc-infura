@@ -117,8 +117,8 @@ describe('createInfuraMiddleware (given an RPC service)', () => {
     );
   });
 
-  describe('if the request to the service returns a successful JSON-RPC response', () => {
-    it('includes the `result` field from the service in the middleware response', async () => {
+  describe('if the response from the service does not contain an `error` field', () => {
+    it('returns a successful JSON-RPC response containing the value of the `result` field', async () => {
       const rpcService = buildRpcService();
       jest.spyOn(rpcService, 'request').mockResolvedValue({
         id: 1,
@@ -147,8 +147,8 @@ describe('createInfuraMiddleware (given an RPC service)', () => {
     });
   });
 
-  describe('if the request to the service returns a unsuccessful JSON-RPC response', () => {
-    it('includes the `error` field from the service in the middleware response', async () => {
+  describe('if the response from the service contains an `error` field with a standard JSON-RPC error object', () => {
+    it('returns an unsuccessful JSON-RPC response containing the error', async () => {
       const rpcService = buildRpcService();
       jest.spyOn(rpcService, 'request').mockResolvedValue({
         id: 1,
@@ -182,8 +182,63 @@ describe('createInfuraMiddleware (given an RPC service)', () => {
     });
   });
 
+  describe('if the response from the service contains an `error` field with a non-standard JSON-RPC error object', () => {
+    it('returns an unsuccessful JSON-RPC response containing the error, wrapped in an "internal" error (but preserving the original message)', async () => {
+      const rpcService = buildRpcService();
+      jest.spyOn(rpcService, 'request').mockResolvedValue({
+        id: 1,
+        jsonrpc: '2.0',
+        error: {
+          code: -32000,
+          data: {
+            foo: 'bar',
+          },
+          message: 'VM Exception while processing transaction: revert',
+          // @ts-expect-error The `name` property is not strictly part of the
+          // JSON-RPC error object.
+          name: 'RuntimeError',
+          stack:
+            'RuntimeError: VM Exception while processing transaction: revert at exactimate (/Users/elliot/code/metamask/metamask-mobile/node_modules/ganache/dist/node/webpack:/Ganache/ethereum/ethereum/lib/src/helpers/gas-estimator.js:257:23)',
+        },
+      });
+      const middleware = createInfuraMiddleware({
+        rpcService,
+      });
+
+      const engine = new JsonRpcEngine();
+      engine.push(middleware);
+      const result = await engine.handle({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_chainId',
+        params: [],
+      });
+
+      expect(result).toStrictEqual({
+        id: 1,
+        jsonrpc: '2.0',
+        error: {
+          code: -32603,
+          message: 'VM Exception while processing transaction: revert',
+          data: {
+            cause: {
+              code: -32000,
+              data: {
+                foo: 'bar',
+              },
+              message: 'VM Exception while processing transaction: revert',
+              name: 'RuntimeError',
+              stack:
+                'RuntimeError: VM Exception while processing transaction: revert at exactimate (/Users/elliot/code/metamask/metamask-mobile/node_modules/ganache/dist/node/webpack:/Ganache/ethereum/ethereum/lib/src/helpers/gas-estimator.js:257:23)',
+            },
+          },
+        },
+      });
+    });
+  });
+
   describe('if the request to the service throws', () => {
-    it('includes the message and stack of the error in a new JSON-RPC error', async () => {
+    it('returns an unsuccessful JSON-RPC response containing the error', async () => {
       const rpcService = buildRpcService();
       jest.spyOn(rpcService, 'request').mockRejectedValue(new Error('oops'));
       const middleware = createInfuraMiddleware({
