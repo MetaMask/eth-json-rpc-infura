@@ -1,6 +1,6 @@
 {
   "name": "@metamask/eth-json-rpc-infura",
-  "version": "10.0.0",
+  "version": "10.1.1",
   "description": "json-rpc-engine middleware for Infura's endpoints",
   "repository": {
     "type": "git",
@@ -21,14 +21,15 @@
     "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' '**/*.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "prepublishOnly": "yarn build:clean && yarn lint && yarn test",
     "setup": "yarn install && yarn allow-scripts",
-    "test": "jest",
+    "test": "jest && yarn build:clean && yarn test:types",
+    "test:types": "tsd --files 'src/**/*.test-d.ts'",
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@metamask/eth-json-rpc-provider": "^4.1.5",
-    "@metamask/json-rpc-engine": "^10.0.0",
-    "@metamask/rpc-errors": "^7.0.0",
-    "@metamask/utils": "^9.1.0"
+    "@metamask/eth-json-rpc-provider": "^4.1.7",
+    "@metamask/json-rpc-engine": "^10.0.2",
+    "@metamask/rpc-errors": "^7.0.2",
+    "@metamask/utils": "^11.0.1"
   },
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.3.1",
@@ -37,6 +38,7 @@
     "@metamask/eslint-config-jest": "^12.1.0",
     "@metamask/eslint-config-nodejs": "^12.1.0",
     "@metamask/eslint-config-typescript": "^12.1.0",
+    "@metamask/network-controller": "22.2.0",
     "@types/jest": "^26.0.13",
     "@types/node": "^18.18.14",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
@@ -56,6 +58,7 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.7.0",
+    "tsd": "^0.31.2",
     "typescript": "~4.8.4"
   },
   "engines": {

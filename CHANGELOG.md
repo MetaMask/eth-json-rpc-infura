@@ -6,6 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.1.1]
+### Fixed
+- Fix middleware so that non-standard JSON-RPC error responses are no longer treated as successful responses ([#123](https://github.com/MetaMask/eth-json-rpc-infura/pull/123))
+  - A "non-standard" error response is one with an `error` field but where there are more properties in the error object than expected
+
+## [10.1.0]
+### Added
+- Add a way to pass an RPC service to `createInfuraMiddleware` ([#116](https://github.com/MetaMask/eth-json-rpc-infura/pull/116))
+  - The new, recommended function signature is now `createInfuraMiddleware({ rpcService: AbstractRpcService; options?: { source?: string; headers?: HeadersInit } })`, where `AbstractRpcService` matches the same interface from `@metamask/network-controller`
+  - This allows us to support automatic failover to a secondary node when the network goes down
+
+### Changed
+- Bump dependencies to remove pre-11.x versions of `@metamask/utils` from dependency tree ([#118](https://github.com/MetaMask/eth-json-rpc-infura/pull/118))
+  - Bump `@metamask/eth-json-rpc-provider` from `^4.1.5` to `^4.1.7`
+  - Bump `@metamask/json-rpc-engine` from `^10.0.0` to `^10.0.2`
+  - Bump `@metamask/rpc-errors` from `^7.0.0` to `^7.0.2`
+  - Bump `@metamask/utils` from `^9.1.0` to `^11.1.0`
+
+### Deprecated
+- Deprecate passing an RPC endpoint to `createInfuraMiddleware` ([#116](https://github.com/MetaMask/eth-json-rpc-infura/pull/116))
+  - See recommended function signature above
+  - The existing signature `createInfuraMiddleware({ network?: InfuraJsonRpcSupportedNetwork; maxAttempts?: number; source?: string; projectId: string; headers?: Record<string, string>; })` will be removed in a future major version
+
 ## [10.0.0]
 ### Changed
 - **BREAKING**: `@metamask/json-rpc-engine` from `^7.1.1` to `^10.0.0` ([#112](https://github.com/MetaMask/eth-json-rpc-infura/pull/112))
@@ -105,7 +128,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.1...HEAD
+[10.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.0...v10.1.1
+[10.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.1.0...v10.0.0
 [9.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v8.1.2...v9.0.0
