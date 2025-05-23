@@ -41,7 +41,9 @@ export type InfuraJsonRpcSupportedNetwork =
   | 'starknet-goerli'
   | 'linea-goerli'
   | 'linea-sepolia'
-  | 'linea-mainnet';
+  | 'linea-mainnet'
+  | 'sei-mainnet'
+  | 'sei-testnet';
 
 /**
  * The interface for a service class responsible for making a request to an RPC
