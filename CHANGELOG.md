@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [10.2.0]
-### Uncategorized
-- feat: add SEI as new infura supported network ([#117](https://github.com/MetaMask/eth-json-rpc-infura/pull/117))
+### Added
+- Add `sei-mainnet` and `sei-testnet` as Infura supported network ([#117](https://github.com/MetaMask/eth-json-rpc-infura/pull/117))
 
 ## [10.1.1]
 ### Fixed
