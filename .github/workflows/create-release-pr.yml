@@ -8,7 +8,7 @@ on:
         default: 'main'
         required: true
       release-type:
-        description: 'A SemVer version diff, i.e. major, minor, patch, prerelease etc. Mutually exclusive with "release-version".'
+        description: 'A SemVer version diff, i.e. major, minor, or patch. Mutually exclusive with "release-version".'
         required: false
       release-version:
         description: 'A specific version to bump to. Mutually exclusive with "release-type".'
@@ -29,13 +29,13 @@ jobs:
           # We check out the specified branch, which will be used as the base
           # branch for all git operations and the release PR.
           ref: ${{ github.event.inputs.base-branch }}
-      - uses: actions/setup-node@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
-          cache: yarn
-      - uses: MetaMask/action-create-release-pr@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          node-version-file: '.nvmrc'
+      - uses: MetaMask/action-create-release-pr@v4
         with:
           release-type: ${{ github.event.inputs.release-type }}
           release-version: ${{ github.event.inputs.release-version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
