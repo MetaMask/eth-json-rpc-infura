@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10.2.0]
+### Added
+- Add `sei-mainnet` and `sei-testnet` as Infura supported network ([#117](https://github.com/MetaMask/eth-json-rpc-infura/pull/117))
+
 ## [10.1.1]
 ### Fixed
 - Fix middleware so that non-standard JSON-RPC error responses are no longer treated as successful responses ([#123](https://github.com/MetaMask/eth-json-rpc-infura/pull/123))
@@ -128,7 +132,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.1...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.2.0...HEAD
+[10.2.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.1...v10.2.0
 [10.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.0...v10.1.1
 [10.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v9.1.0...v10.0.0
