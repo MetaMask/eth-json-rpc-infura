@@ -274,7 +274,7 @@ async function performFetch(
   projectId: string,
   extraHeaders: RequestHeaders,
   req: ExtendedJsonRpcRequest<JsonRpcParams>,
-  res: PendingJsonRpcResponse<Json>,
+  res: PendingJsonRpcResponse,
   source: string | undefined,
 ): Promise<void> {
   const { fetchUrl, fetchParams } = fetchConfigFromReq({
