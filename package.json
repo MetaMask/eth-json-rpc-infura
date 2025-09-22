@@ -38,7 +38,7 @@
     "@metamask/eslint-config-jest": "^12.1.0",
     "@metamask/eslint-config-nodejs": "^12.1.0",
     "@metamask/eslint-config-typescript": "^12.1.0",
-    "@metamask/network-controller": "22.2.0",
+    "@metamask/network-controller": "24.2.0",
     "@types/jest": "^26.0.13",
     "@types/node": "^18.18.14",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
@@ -72,5 +72,6 @@
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false
     }
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha256.c17d3797fb9a9115bf375e31bfd30058cac6bc9c3b8807a3d8cb2094794b51ca"
 }
