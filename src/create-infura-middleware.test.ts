@@ -327,6 +327,8 @@ describe('createInfuraMiddleware (given an RPC endpoint)', () => {
  */
 function buildRpcService(): AbstractRpcService {
   return {
+    endpointUrl: new URL('https://metamask.test'),
+
     async request<Params extends JsonRpcParams, Result extends Json>(
       jsonRpcRequest: JsonRpcRequest<Params>,
       _fetchOptions?: RequestInit,
