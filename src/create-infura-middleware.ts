@@ -11,7 +11,7 @@ import {
 import { fetchConfigFromReq } from './fetch-config-from-req';
 import { projectLogger, createModuleLogger } from './logging-utils';
 import type {
-  AbstractRpcService,
+  AbstractRpcServiceLike,
   ExtendedJsonRpcRequest,
   InfuraJsonRpcSupportedNetwork,
   RequestHeaders,
@@ -56,7 +56,7 @@ const RETRIABLE_ERRORS = [
  * @returns The fetch middleware.
  */
 export function createInfuraMiddleware(args: {
-  rpcService: AbstractRpcService;
+  rpcService: AbstractRpcServiceLike;
   options?: {
     source?: string;
     headers?: Headers;
@@ -89,7 +89,7 @@ export function createInfuraMiddleware(
 export function createInfuraMiddleware(
   args:
     | {
-        rpcService: AbstractRpcService;
+        rpcService: AbstractRpcServiceLike;
         options?: {
           source?: string;
           headers?: Headers;
@@ -118,7 +118,7 @@ function createInfuraMiddlewareWithRpcService({
   rpcService,
   options = {},
 }: {
-  rpcService: AbstractRpcService;
+  rpcService: AbstractRpcServiceLike;
   options?: {
     source?: string;
     headers?: Headers;
