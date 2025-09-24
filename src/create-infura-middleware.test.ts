@@ -2,7 +2,7 @@ import { JsonRpcEngine } from '@metamask/json-rpc-engine';
 import type { Json, JsonRpcParams, JsonRpcRequest } from '@metamask/utils';
 
 import { createInfuraMiddleware } from '.';
-import type { AbstractRpcService } from './types';
+import type { AbstractRpcServiceLike } from './types';
 
 describe('createInfuraMiddleware (given an RPC service)', () => {
   it('calls the RPC service with the correct request headers and body when no `source` option given', async () => {
@@ -325,10 +325,8 @@ describe('createInfuraMiddleware (given an RPC endpoint)', () => {
  * Constructs a fake RPC service for use as a failover in tests.
  * @returns The fake failover service.
  */
-function buildRpcService(): AbstractRpcService {
+function buildRpcService(): AbstractRpcServiceLike {
   return {
-    endpointUrl: new URL('https://metamask.test'),
-
     async request<Params extends JsonRpcParams, Result extends Json>(
       jsonRpcRequest: JsonRpcRequest<Params>,
       _fetchOptions?: RequestInit,
@@ -337,27 +335,6 @@ function buildRpcService(): AbstractRpcService {
         id: jsonRpcRequest.id,
         jsonrpc: jsonRpcRequest.jsonrpc,
         result: 'ok' as Result,
-      };
-    },
-    onRetry() {
-      return {
-        dispose() {
-          // do nothing
-        },
-      };
-    },
-    onBreak() {
-      return {
-        dispose() {
-          // do nothing
-        },
-      };
-    },
-    onDegraded() {
-      return {
-        dispose() {
-          // do nothing
-        },
       };
     },
   };
