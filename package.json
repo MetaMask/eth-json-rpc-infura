@@ -20,7 +20,6 @@
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
     "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' '**/*.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "prepublishOnly": "yarn build:clean && yarn lint && yarn test",
-    "setup": "yarn install && yarn allow-scripts",
     "test": "jest && yarn build:clean && yarn test:types",
     "test:types": "tsd --files 'src/**/*.test-d.ts'",
     "test:watch": "jest --watch"
@@ -73,5 +72,6 @@
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false
     }
-  }
+  },
+  "packageManager": "yarn@4.10.3"
 }
