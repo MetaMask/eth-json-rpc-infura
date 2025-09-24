@@ -51,6 +51,11 @@ export type InfuraJsonRpcSupportedNetwork =
  */
 export type AbstractRpcService = {
   /**
+   * The URL of the RPC endpoint.
+   */
+  endpointUrl: URL;
+
+  /**
    * Listens for when the RPC service retries the request.
    * @param listener - The callback to be called when the retry occurs.
    * @returns A disposable.
