@@ -863,7 +863,7 @@
   resolved "https://registry.yarnpkg.com/@metamask/messenger/-/messenger-0.3.0.tgz#cd4b40d820d27afe463cc7925c8ed7006fb5e860"
   integrity sha512-Wa9ctLwtD2B3ut9bJW0OLhoM4X2J7y7kuiWZbl+s8cuUBPmTS5IoUUUpvCDWOkucUsJ+6ZiqWMl2d5oSqLN28g==
 
-"@metamask/network-controller@24.2.0":
+"@metamask/network-controller@^24.2.0":
   version "24.2.0"
   resolved "https://registry.yarnpkg.com/@metamask/network-controller/-/network-controller-24.2.0.tgz#2451f887e0c3d2a4f27f6f3f4c0756e77fa174ff"
   integrity sha512-Vz2R/5u9hTIkDa5eVK7Z3QcdE8iBJhzerM3lopvLznSAjaasiyGYP18KiZ2+q7dJeWAgifxSeuy6k8kvFE9vEQ==
