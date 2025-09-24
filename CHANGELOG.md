@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Simplify `rpcService` parameter type of `createInfuraMiddleware` ([#127](https://github.com/MetaMask/eth-json-rpc-infura/pull/127))
 - Bump `@metamask/eth-json-rpc-provider` from `^4.1.7` to `^5.0.0` ([#126](https://github.com/MetaMask/eth-json-rpc-infura/pull/126))
 - Bump `@metamask/json-rpc-engine` from `^10.0.2` to `^10.1.0` ([#126](https://github.com/MetaMask/eth-json-rpc-infura/pull/126))
 
