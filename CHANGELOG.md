@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [10.3.0]
 ### Changed
 - Simplify `rpcService` parameter type of `createInfuraMiddleware` ([#127](https://github.com/MetaMask/eth-json-rpc-infura/pull/127))
 - Bump `@metamask/eth-json-rpc-provider` from `^4.1.7` to `^5.0.0` ([#126](https://github.com/MetaMask/eth-json-rpc-infura/pull/126))
@@ -136,7 +138,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use `eth-rpc-errors@3.0.0` ([#28](https://github.com/MetaMask/eth-json-rpc-infura/pull/28))
 - Use `eth-json-rpc-middleware@4.4.1` ([#15](https://github.com/MetaMask/eth-json-rpc-infura/pull/15))
 
-[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.2.0...HEAD
+[Unreleased]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.3.0...HEAD
+[10.3.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.2.0...v10.3.0
 [10.2.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.1...v10.2.0
 [10.1.1]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.1.0...v10.1.1
 [10.1.0]: https://github.com/MetaMask/eth-json-rpc-infura/compare/v10.0.0...v10.1.0
